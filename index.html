@@ -115,6 +115,7 @@
   <section id="menu">
     <h1>Teórico de Manejo</h1>
     <p class="sub">Practicá para el examen teórico de la licencia de conducir.</p>
+    <p class="hint" id="avisoSonido" hidden>🔈 Tocá la pantalla para activar la música</p>
     <div class="modes">
       <button class="mode" data-mode="senales"><div><b>Señales de tránsito</b><span>¿Qué significa esta señal?</span></div><div class="go">›</div></button>
       <button class="mode" data-mode="teoria"><div><b>Teoría</b><span>Velocidades, prioridades, adelantamiento, estacionamiento…</span></div><div class="go">›</div></button>
@@ -216,7 +217,7 @@ const PAUSA_BIEN = 900, PAUSA_MAL = 2200, ANIM = 280;
 
 const fmt = ms => { const s = Math.floor(ms / 1000); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`; };
 const tick = () => { $("reloj").textContent = "⏱ " + fmt(Date.now() - inicio); };
-function parar() { clearInterval(reloj); clearTimeout(espera); reloj = espera = null; pausadoDesde = 0; $("pausa").hidden = true; Sonido.stop(); }
+function parar() { clearInterval(reloj); clearTimeout(espera); reloj = espera = null; pausadoDesde = 0; $("pausa").hidden = true; }
 
 // Pausa: congela el reloj, el avance automático y la música
 function pausar() {
@@ -247,7 +248,10 @@ function pintarToggles() {
   });
 }
 document.querySelectorAll("[data-tg]").forEach(b => b.onclick = () => {
-  if (b.dataset.tg === "musica") Sonido.setMusica(!Sonido.musica);
+  if (b.dataset.tg === "musica") {
+    Sonido.setMusica(!Sonido.musica);
+    if (!Sonido.musica) Sonido.stop(); else if (!pausadoDesde) Sonido.play();
+  }
   else { Sonido.setEfectos(!Sonido.efectos); if (Sonido.efectos) Sonido.bien(); }
   pintarToggles();
 });
@@ -379,8 +383,25 @@ $("otraVez").onclick = () => empezar(ultimoModo);
 $("repErr").onclick = () => empezar("repaso", falladas.map(f => f.r.it));
 $("btnPausa").onclick = pausar;
 $("continuar").onclick = continuar;
-// Si se sale de la app o se bloquea el celular, se pausa solo
-document.addEventListener("visibilitychange", () => { if (document.hidden && reloj) pausar(); });
+// Si se sale de la app o se bloquea el celular, se pausa solo y se corta el sonido
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) { if (reloj) pausar(); Sonido.dormir(); }
+  else if (!pausadoDesde) Sonido.play();
+});
+window.addEventListener("pagehide", () => Sonido.dormir());
+
+// La música arranca al entrar; si el navegador la bloquea, arranca con el primer toque
+function activarSonido() {
+  if (!pausadoDesde) Sonido.play();
+  setTimeout(() => {
+    if (Sonido.bloqueado) return;
+    $("avisoSonido").hidden = true;
+    for (const ev of ["pointerdown", "keydown", "touchend"]) document.removeEventListener(ev, activarSonido, true);
+  }, 150);
+}
+for (const ev of ["pointerdown", "keydown", "touchend"]) document.addEventListener(ev, activarSonido, true);
+Sonido.play();
+setTimeout(() => { $("avisoSonido").hidden = !Sonido.musica || !Sonido.bloqueado; }, 300);
 document.addEventListener("keydown", e => {
   if ($("quiz").hidden) return;
   if (e.key === "Escape" || e.key === "p") return pausadoDesde ? continuar() : pausar();

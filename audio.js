@@ -79,7 +79,7 @@ const Sonido = (() => {
     while (prox < ctx.currentTime + 0.15) { programar(prox, paso); prox += PASO; paso = (paso + 1) % 128; }
   }
   function play() {
-    if (!prefs.musica || sonando || !init()) return;
+    if (!prefs.musica || !init() || sonando) return;
     sonando = true; prox = ctx.currentTime + 0.08;
     musGain.gain.cancelScheduledValues(ctx.currentTime);
     musGain.gain.setValueAtTime(0.0001, ctx.currentTime);
@@ -123,6 +123,10 @@ const Sonido = (() => {
     get efectos() { return prefs.efectos; },
     setMusica(v) { prefs.musica = v; guardarPrefs(); },
     setEfectos(v) { prefs.efectos = v; guardarPrefs(); },
+    // El navegador no deja sonar nada hasta que el usuario toca la página
+    get bloqueado() { return !ctx || ctx.state !== "running"; },
+    // Corta todo al salir de la página (otra app, pantalla bloqueada, cerrar)
+    dormir() { stop(); if (ctx && ctx.state === "running") ctx.suspend(); },
     play, stop, bien, mal, fin,
   };
 })();
