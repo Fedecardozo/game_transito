@@ -1,13 +1,13 @@
 # Teórico de Manejo 🚦
 
-Juego web de preguntas con opción múltiple para **estudiar el examen teórico de la licencia de conducir para autos** (Argentina). Se juega en el celular o en la compu, no necesita instalación ni conexión a un servidor, y está pensado para que estudiar sea más ágil: respondés, ves al instante si acertaste y pasás sola a la siguiente pregunta.
+Juego web de preguntas con opción múltiple para **estudiar el examen teórico de la licencia de conducir de auto o de moto** (Argentina). Se juega en el celular o en la compu, no necesita instalación ni conexión a un servidor, y está pensado para que estudiar sea más ágil: respondés, ves al instante si acertaste y pasás sola a la siguiente pregunta.
 
-Tiene **170 señales de tránsito** con su imagen y **48 preguntas de teoría** (velocidades, prioridad de paso, adelantamiento, estacionamiento, balizas y más), con puntos, combos, niveles, examen simulado con vidas, música y efectos de sonido.
+Al entrar elegís para qué licencia estudiás: **auto (categoría B)** o **moto (categoría A)**. Tiene **170 señales de tránsito** con su imagen y preguntas de teoría para cada licencia (**48 para auto y 56 para moto**: velocidades, prioridad de paso, adelantamiento, estacionamiento, balizas, manejo de la moto y más), con puntos, combos, niveles, examen simulado con vidas, música y efectos de sonido.
 
 <p align="center">
+  <img src="docs/capturas/elegir.png" width="250" alt="Elegir licencia: auto o moto">
   <img src="docs/capturas/menu.png" width="250" alt="Menú principal">
   <img src="docs/capturas/senal.png" width="250" alt="Pregunta de señal">
-  <img src="docs/capturas/resultado.png" width="250" alt="Resultado de la partida">
 </p>
 
 ---
@@ -23,24 +23,34 @@ El juego **recuerda en qué te equivocaste** para que puedas repasar solo eso, y
 
 ## Cómo se juega
 
-### 1. Elegí un modo
+### 1. Elegí tu licencia
+
+Cada vez que entrás, la app te pregunta **qué licencia estás sacando**: **Auto** (categoría B, autos y camionetas) o **Moto** (categoría A, motos y ciclomotores). Viene marcada la que elegiste la última vez.
+
+- Las **señales** son las mismas para las dos.
+- La **teoría** cambia: en moto se suman las preguntas propias de la moto (casco, manejo, frenos, lluvia y viento…) y se sacan las que son solo de auto (niños en el asiento trasero, dispositivos del auto, cómo dejarlo estacionado en pendiente).
+- Si estás en auto y querés practicar moto (o al revés), cambiás con el selector **Licencia: Auto | Moto** del menú, sin volver a la pantalla inicial.
+- El **mejor examen simulado** se guarda por separado para cada licencia. Tu nivel y tu XP son uno solo.
+
+### 2. Elegí un modo
 
 Desde el menú elegís cómo querés practicar y cuántas preguntas querés por partida: **10, 20, 40 o todas**.
 
 | Modo | Qué hace |
 |---|---|
 | **Señales de tránsito** | Solo señales: "¿Qué significa esta señal?". Muestra cuántas de las 170 ya dominás. |
-| **Teoría** | Solo preguntas de normas. Muestra cuántas de las 48 ya dominás. |
-| **Examen simulado** | Mitad señales y mitad teoría, con **3 vidas**: si te equivocás 3 veces, la partida termina. Guarda tu mejor resultado. |
+| **Teoría** | Solo preguntas de normas de tu licencia. Muestra cuántas ya dominás (de 48 en auto, de 56 en moto). |
+| **Examen simulado** | Mitad señales y mitad teoría, con **3 vidas**: si te equivocás 3 veces, la partida termina. Guarda tu mejor resultado (uno por licencia). |
 | **Repasar mis errores** | Te pregunta solo lo que respondiste mal en partidas anteriores. Cuando lo acertás, sale de la lista. |
 
 En la parte de arriba del menú está tu **nivel** y la barra de **experiencia (XP)**.
 
-### 2. Respondé
+### 3. Respondé
 
 <p align="center">
   <img src="docs/capturas/acierto.png" width="250" alt="Respuesta correcta">
   <img src="docs/capturas/error.png" width="250" alt="Respuesta incorrecta en el examen simulado">
+  <img src="docs/capturas/moto.png" width="250" alt="Pregunta de la licencia de moto">
 </p>
 
 - Tocás una de las 4 opciones (A, B, C o D).
@@ -52,9 +62,9 @@ Arriba de la pregunta tenés siempre a la vista:
 - ⏱ el **reloj** de la partida,
 - ⚡ los **puntos** y el **combo** (aciertos seguidos),
 - una **casilla por pregunta** que se pinta de verde o rojo a medida que avanzás (en partidas de más de 30 preguntas pasa a ser una barra de progreso),
-- en el examen simulado, las **vidas** que te quedan.
+- en el examen simulado, las **vidas** que te quedan (autitos o motitos, según tu licencia).
 
-### 3. Pausá cuando quieras
+### 4. Pausá cuando quieras
 
 <p align="center">
   <img src="docs/capturas/pausa.png" width="250" alt="Pantalla de pausa">
@@ -64,7 +74,11 @@ Con el botón **⏸** se frena el reloj, se corta la música y se tapa la pregun
 
 Si minimizás el navegador, cambiás de app o bloqueás el celular, **el juego se pausa solo** y se corta el sonido.
 
-### 4. Mirá tu resultado
+### 5. Mirá tu resultado
+
+<p align="center">
+  <img src="docs/capturas/resultado.png" width="250" alt="Resultado de la partida">
+</p>
 
 Al terminar ves:
 - si quedaste **APROBADO** (70% o más), **NO APROBADO** o **SIN VIDAS**,
@@ -132,18 +146,22 @@ Las imágenes se recortaron del material de señalética del examen y están en 
 | Transitoria (obras) | 16 |
 | Señales del agente de tránsito | 9 |
 
-### Teoría (48)
+### Teoría (48 para auto, 56 para moto)
 
-| Tema | Preguntas |
-|---|---:|
-| Documentación y seguridad | 3 |
-| Circulación | 2 |
-| Límites de velocidad | 7 |
-| Giros | 4 |
-| Adelantamiento | 7 |
-| Prioridad de paso | 9 |
-| Estacionamiento y distancias | 7 |
-| Seguridad y frenado | 9 |
+| Tema | Auto | Moto |
+|---|---:|---:|
+| Documentación y seguridad | 3 | 2 |
+| Circulación | 2 | 2 |
+| Límites de velocidad | 7 | 7 |
+| Giros | 4 | 4 |
+| Adelantamiento | 7 | 7 |
+| Prioridad de paso | 9 | 9 |
+| Motos | – | 12 |
+| Estacionamiento y distancias | 7 | 5 |
+| Seguridad y frenado | 9 | 8 |
+| **Total** | **48** | **56** |
+
+En total son 60 preguntas: 44 sirven para las dos licencias, 4 son solo de auto y 12 solo de moto.
 
 ### Fuentes
 
@@ -153,7 +171,7 @@ El contenido sale del material de estudio del examen teórico del **Municipio de
 - *Manual de Tránsito* (versión reducida): "Conocimientos básicos para conductores particulares".
 - Folleto de licencias: solo la sección **"Conocimientos generales para conducir – Categorías A, B, C, D, E, F, G"**. Las secciones exclusivas de categorías profesionales (C, E y D) quedaron afuera a propósito.
 
-Como el juego es para sacar el registro **de auto**, también quedaron afuera las preguntas que son solo para motos (casco, manejo de la moto, frenos de la moto, etc.). Las señales que hablan de motos (por ejemplo *Prohibido circular motos*) siguen, porque también las tiene que conocer quien maneja un auto.
+Las preguntas de motos salen de la parte del folleto dedicada a motocicletas y solo aparecen si elegís la licencia de moto.
 
 Algunas respuestas son propias de Lomas de Zamora (por ejemplo, de qué lado se estaciona). Las respuestas correctas salen textuales del material; **las opciones incorrectas fueron escritas para el juego**. Es una herramienta de práctica, no material oficial: ante cualquier duda, consultá el material de tu municipio.
 
@@ -179,7 +197,8 @@ python -m http.server 8765
 Todo queda en el navegador del dispositivo (`localStorage`), sin cuentas ni servidores:
 
 - las preguntas que erraste (para "Repasar mis errores"),
-- tu XP, tus preguntas dominadas y tu mejor examen simulado,
+- la última licencia que elegiste (auto o moto),
+- tu XP, tus preguntas dominadas y tu mejor examen simulado de cada licencia,
 - si tenés la música y los sonidos prendidos o apagados.
 
 Si borrás los datos del navegador o jugás en modo incógnito, el progreso empieza de cero.
@@ -189,10 +208,10 @@ Si borrás los datos del navegador o jugás en modo incógnito, el progreso empi
 ```
 index.html              estructura de la página
 css/estilos.css         todos los estilos (tema oscuro, pensado para celular)
-js/app.js               lógica del juego: modos, preguntas, puntos, pausa, resultado
+js/app.js               lógica del juego: licencia, modos, preguntas, puntos, pausa, resultado
 js/audio.js             música y efectos de sonido (Web Audio API)
 js/senales.js           las 170 señales: imagen, nombre y categoría
-js/preguntas.js         las 48 preguntas de teoría
+js/preguntas.js         las 60 preguntas de teoría (44 comunes, 4 solo de auto y 12 solo de moto)
 img/senales/            imágenes de cada señal
 docs/capturas/          capturas de pantalla de este README
 favicon.svg             ícono de la pestaña (señal de Ceda el paso)
@@ -208,6 +227,13 @@ Las preguntas de teoría están en `js/preguntas.js`. Cada una tiene un tema, el
 ```js
 { tema: "Límites de velocidad", q: "¿Cuál es la velocidad máxima en autopista?",
   o: ["130 km/h", "110 km/h", "120 km/h", "150 km/h"] },
+```
+
+Si la pregunta es de una sola licencia, agregale `para: "auto"` o `para: "moto"`. Sin `para`, aparece en las dos:
+
+```js
+{ tema: "Motos", para: "moto", q: "Para circular en moto se debe llevar:",
+  o: ["Antiparras y casco", "Solo casco", "Guantes únicamente", "Chaleco reflectivo únicamente"] },
 ```
 
 Para sumar una señal, agregá su imagen en `img/senales/` y una entrada en `js/senales.js` con `img`, `name` y `cat`.

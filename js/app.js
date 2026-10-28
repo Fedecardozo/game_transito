@@ -4,8 +4,20 @@ const SVG = "http://www.w3.org/2000/svg";
 
 // Cada pregunta tiene un id estable para poder guardar los errores
 const bancoSenales = SENALES.map(s => ({ id: "s:" + s.img, tipo: "senal", tag: s.cat, s }));
-const bancoTeoria = PREGUNTAS.map(p => ({ id: "t:" + p.q, tipo: "teoria", tag: p.tema, p }));
-const porId = new Map([...bancoSenales, ...bancoTeoria].map(x => [x.id, x]));
+const todaLaTeoria = PREGUNTAS.map(p => ({ id: "t:" + p.q, tipo: "teoria", tag: p.tema, p }));
+
+// Licencia elegida: las señales son las mismas, la teoría depende de auto o moto
+const VEHICULO = "teorico-vehiculo";
+const VEHICULOS = { auto: "Auto", moto: "Moto" };
+let vehiculo = null;
+try { vehiculo = localStorage.getItem(VEHICULO); } catch {}
+if (!VEHICULOS[vehiculo]) vehiculo = null;
+let bancoTeoria = [], porId = new Map();
+function armarBancos() {
+  bancoTeoria = todaLaTeoria.filter(x => !x.p.para || x.p.para === (vehiculo || "auto"));
+  porId = new Map([...bancoSenales, ...bancoTeoria].map(x => [x.id, x]));
+}
+armarBancos();
 
 function opcionesSenal(s) {
   const nombres = new Set([s.name]);
@@ -25,11 +37,14 @@ let errores = new Set();
 try { errores = new Set(JSON.parse(localStorage.getItem(KEY) || "[]")); } catch {}
 const guardar = () => { try { localStorage.setItem(KEY, JSON.stringify([...errores])); } catch {} };
 
-let perfil = { xp: 0, mejor: 0, mejorTotal: 0 };
+// El mejor examen se guarda por licencia; el que había antes de existir la moto era de auto
+let perfil = { xp: 0, examen: { auto: { mejor: 0, total: 0 }, moto: { mejor: 0, total: 0 } } };
 let dominadas = new Set();
 try {
   const p = JSON.parse(localStorage.getItem(PERFIL) || "{}");
-  perfil.xp = p.xp || 0; perfil.mejor = p.mejor || 0; perfil.mejorTotal = p.mejorTotal || 0;
+  perfil.xp = p.xp || 0;
+  if (p.examen) for (const v in VEHICULOS) Object.assign(perfil.examen[v], p.examen[v]);
+  else if (p.mejorTotal) perfil.examen.auto = { mejor: p.mejor, total: p.mejorTotal };
   dominadas = new Set(p.dominadas || []);
 } catch {}
 const guardarPerfil = () => {
@@ -62,7 +77,14 @@ const iconoVida = apagada => {
   svg.setAttribute("fill", "currentColor"); svg.setAttribute("aria-hidden", "true");
   if (apagada) svg.setAttribute("class", "off");
   const p = document.createElementNS(SVG, "path");
-  p.setAttribute("d", "M5 11.2 6.7 6.9A2.2 2.2 0 0 1 8.7 5.5h6.6a2.2 2.2 0 0 1 2 1.4l1.7 4.3v5.3a1 1 0 0 1-1 1h-1.3a1 1 0 0 1-1-1V16H8.3v.5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1z");
+  if (vehiculo === "moto") {
+    // Moto: dos ruedas y el cuadro, en trazo
+    svg.setAttribute("fill", "none"); svg.setAttribute("stroke", "currentColor");
+    svg.setAttribute("stroke-width", "2.2"); svg.setAttribute("stroke-linecap", "round"); svg.setAttribute("stroke-linejoin", "round");
+    p.setAttribute("d", "M2.8 16a3.2 3.2 0 1 0 6.4 0a3.2 3.2 0 1 0-6.4 0M14.8 16a3.2 3.2 0 1 0 6.4 0a3.2 3.2 0 1 0-6.4 0M6 16h5.5l3-5h3.2l1.3 5M9 11h4M15 7h2.5l1 4");
+  } else {
+    p.setAttribute("d", "M5 11.2 6.7 6.9A2.2 2.2 0 0 1 8.7 5.5h6.6a2.2 2.2 0 0 1 2 1.4l1.7 4.3v5.3a1 1 0 0 1-1 1h-1.3a1 1 0 0 1-1-1V16H8.3v.5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1z");
+  }
   svg.appendChild(p);
   return svg;
 };
@@ -116,9 +138,22 @@ document.querySelectorAll("[data-tg]").forEach(b => b.onclick = () => {
   pintarToggles();
 });
 
-function pantalla(id) { for (const s of ["menu", "quiz", "fin"]) $(s).hidden = s !== id; window.scrollTo(0, 0); }
+function pantalla(id) { for (const s of ["elegir", "menu", "quiz", "fin"]) $(s).hidden = s !== id; window.scrollTo(0, 0); }
+
+function elegirVehiculo(v) {
+  vehiculo = v;
+  try { localStorage.setItem(VEHICULO, v); } catch {}
+  armarBancos();
+  refrescarMenu();
+  pantalla("menu");
+}
+document.querySelectorAll("[data-veh]").forEach(b => b.onclick = () => elegirVehiculo(b.dataset.veh));
 
 function refrescarMenu() {
+  document.querySelectorAll("[data-veh]").forEach(b => b.setAttribute("aria-pressed", b.dataset.veh === vehiculo));
+  document.body.dataset.vehiculo = vehiculo || "auto";
+  $("subMenu").textContent =`Practicá para el examen teórico de la licencia de ${vehiculo === "moto" ? "moto" : "auto"}.`;
+
   const n = [...errores].filter(id => porId.has(id)).length;
   $("nErrores").textContent = n ? `${n} pregunta${n > 1 ? "s" : ""} para repasar` : "Todavía no tenés errores guardados";
   $("cErrores").textContent = n;
@@ -131,7 +166,8 @@ function refrescarMenu() {
   $("progSenales").style.width = (ds / bancoSenales.length * 100) + "%";
   $("nTeoria").textContent = `${dt}/${bancoTeoria.length}`;
   $("progTeoria").style.width = (dt / bancoTeoria.length * 100) + "%";
-  $("mejorExamen").textContent = perfil.mejorTotal ? `MEJOR: ${perfil.mejor}/${perfil.mejorTotal}` : "TODAVÍA SIN JUGAR";
+  const ex = perfil.examen[vehiculo || "auto"];
+  $("mejorExamen").textContent = ex.total ? `MEJOR: ${ex.mejor}/${ex.total}` : "TODAVÍA SIN JUGAR";
 
   $("nivelNum").textContent = nivel(perfil.xp);
   $("nivelNombre").textContent = nombreNivel(perfil.xp);
@@ -309,7 +345,8 @@ function terminar() {
   const xpGana = Math.round(puntos / 5);
   const xpAntes = perfil.xp;
   perfil.xp += xpGana;
-  if (conVidas && aciertos > perfil.mejor) { perfil.mejor = aciertos; perfil.mejorTotal = ronda.length; }
+  const ex = perfil.examen[vehiculo || "auto"];
+  if (conVidas && aciertos > ex.mejor) { ex.mejor = aciertos; ex.total = ronda.length; }
   guardarPerfil();
 
   $("barra").style.width = "100%";

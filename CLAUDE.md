@@ -1,18 +1,18 @@
 # Teórico de Manejo — notas para Claude
 
-Juego web de opción múltiple para estudiar el **examen teórico de la licencia de conducir de auto** (Lomas de Zamora, Argentina). HTML + CSS + JS puro, sin frameworks, sin build ni dependencias (solo las fuentes Bungee y Barlow desde Google Fonts). Repo: https://github.com/Fedecardozo/game_transito (rama única `main`).
+Juego web de opción múltiple para estudiar el **examen teórico de la licencia de conducir de auto (cat. B) o moto (cat. A)** (Lomas de Zamora, Argentina). HTML + CSS + JS puro, sin frameworks, sin build ni dependencias (solo las fuentes Bungee y Barlow desde Google Fonts). Repo: https://github.com/Fedecardozo/game_transito (rama única `main`).
 
 El usuario escribe en español rioplatense: responder y escribir textos de la app, commits y README en ese idioma (voseo: "tocá", "elegí").
 
 ## Estructura
 
 ```
-index.html          solo estructura: menú (#menu), partida (#quiz), resultado (#fin); sin <style>, sin JS inline, sin style="..."
+index.html          solo estructura: elegir licencia (#elegir, pantalla inicial), menú (#menu), partida (#quiz), resultado (#fin); sin <style>, sin JS inline, sin style="..."
 css/estilos.css     todos los estilos; tema oscuro "ruta nocturna", tokens en :root, mobile-first (max-width 520px)
 js/app.js           lógica: modos, armado de preguntas, puntos/combo/vidas, pausa, resultado, XP/niveles
 js/audio.js         objeto global `Sonido`: música y efectos generados con Web Audio (no hay archivos de audio)
 js/senales.js       const SENALES = [{ img, name, cat }]  (170 señales)
-js/preguntas.js     const PREGUNTAS = [{ tema, q, o: [correcta, ...3 incorrectas] }]  (48 preguntas)
+js/preguntas.js     const PREGUNTAS = [{ tema, para?, q, o: [correcta, ...3 incorrectas] }]  (60: 44 comunes, 4 solo auto, 12 solo moto)
 img/senales/        PNG de cada señal, nombre = slug del name
 docs/capturas/      capturas usadas en el README
 favicon.svg, apple-touch-icon.png   ícono "Ceda el paso"
@@ -26,14 +26,17 @@ Los scripts se cargan en orden: senales.js → preguntas.js → audio.js → app
 - En `PREGUNTAS`, **la primera opción es siempre la correcta**; el juego las mezcla al mostrar. Cada pregunta debe tener 4 opciones distintas.
 - Las opciones incorrectas de las señales se arman solas: primero de la misma `cat`, después de otras.
 - Ids estables de pregunta: `"s:" + img` para señales y `"t:" + q` para teoría. Si se cambia el texto de una pregunta o el nombre de un archivo de imagen, se pierde el progreso guardado de esa pregunta (no rompe nada: los ids desconocidos se ignoran).
-- `localStorage` (siempre envuelto en try/catch): `teorico-errores` (ids errados), `teorico-perfil` (xp, mejor, mejorTotal, dominadas), `teorico-sonido` (musica, efectos).
+- Licencia: `vehiculo` ("auto"/"moto") en app.js; `armarBancos()` arma `bancoTeoria` filtrando por `para` (sin `para` = ambas) y `porId` solo con lo de la licencia actual. Las señales son las mismas. `body[data-vehiculo]` cambia la ilustración del menú y el ícono de vidas también cambia.
+- `localStorage` (siempre envuelto en try/catch): `teorico-vehiculo` (última licencia), `teorico-errores` (ids errados), `teorico-perfil` (xp, examen: {auto: {mejor, total}, moto: {...}}, dominadas; el viejo mejor/mejorTotal se migra a auto), `teorico-sonido` (musica, efectos).
 - Reglas de juego en app.js: 50 pts por acierto + 10 por combo (máx +50); XP = puntos/5; nivel cada 500 XP; examen simulado ("mixto") con 3 vidas; aprobado ≥ 70% (criterio del juego, no oficial); estrellas 60/80/95%; avance automático 900 ms al acertar y 2200 ms al errar; con más de 30 preguntas la fila de casillas pasa a barra.
 - Audio: los navegadores bloquean el sonido hasta el primer toque; la música arranca al cargar si se puede y si no con el primer gesto. Se corta y se pausa la partida al ocultar la página (visibilitychange/pagehide).
 
 ## Decisiones de contenido (pedidas por el usuario)
 
 - Fuentes: "Sistema de Señalización Vial Uniforme", "Manual de Tránsito (versión reducida)" y el folleto de licencias del Municipio de Lomas de Zamora. Los PDFs ya no están en la carpeta; todo el contenido quedó en js/ e img/.
-- **Fuera:** secciones de categorías profesionales (C, E, D) y **preguntas específicas de motos** (es para licencia de auto). Las **señales** de motos se mantienen.
+- **Fuera:** secciones de categorías profesionales (C, E, D).
+- Al entrar siempre se muestra la pantalla para elegir licencia (con la última marcada); desde el menú se cambia con el selector Auto | Moto.
+- Solo auto (`para: "auto"`): dispositivos de seguridad del vehículo, niños en el asiento trasero, estacionar en pendiente (x2). Solo moto: las 12 del tema "Motos". La de neumáticos gastados es común.
 - Respuestas correctas textuales del material; las incorrectas fueron inventadas para el juego.
 
 ## Git

@@ -16,9 +16,34 @@
 </head>
 <body>
 <main>
-  <section id="menu">
+  <section id="elegir">
+    <div class="titulo elegirTop">
+      <span class="kicker">
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"></path></svg>
+        Examen teórico
+      </span>
+      <h1>TEÓRICO<br><span>DE MANEJO</span></h1>
+      <p class="sub">¿Qué licencia estás sacando?</p>
+    </div>
+
+    <div class="vehs">
+      <button class="veh v-auto" data-veh="auto">
+        <span class="vehIco"><svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 16v-3.5l2.2-4.6A2 2 0 0 1 7 6.8h7.6a2 2 0 0 1 1.5.7L19.5 11h.8a1.7 1.7 0 0 1 1.7 1.7V16h-1.5"></path><path d="M9.2 16h5.6"></path><path d="M3 16h1.8"></path><path d="M4.8 11h14.7"></path><circle cx="7" cy="16.5" r="2.2"></circle><circle cx="17" cy="16.5" r="2.2"></circle></svg></span>
+        <span class="vehTxt"><b>Auto</b><span class="vsub">Categoría B · autos y camionetas</span><span class="ult">Última elegida</span></span>
+        <span class="go">›</span>
+      </button>
+      <button class="veh v-moto" data-veh="moto">
+        <span class="vehIco"><svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="16" r="3.2"></circle><circle cx="18" cy="16" r="3.2"></circle><path d="M6 16h5.5l3-5h3.2l1.3 5"></path><path d="M9 11h4"></path><path d="M15 7h2.5l1 4"></path></svg></span>
+        <span class="vehTxt"><b>Moto</b><span class="vsub">Categoría A · motos y ciclomotores</span><span class="ult">Última elegida</span></span>
+        <span class="go">›</span>
+      </button>
+    </div>
+    <p class="hint centro">Las señales son las mismas; cambian algunas preguntas de teoría. Podés cambiar de licencia desde el menú.</p>
+  </section>
+
+  <section id="menu" hidden>
     <div class="hero">
-      <svg viewBox="0 0 390 300" role="img" aria-label="Ilustración nocturna: un auto circulando por una ruta, un semáforo en verde y una señal de pare">
+      <svg viewBox="0 0 390 300" role="img" aria-label="Ilustración nocturna: un vehículo circulando por una ruta, un semáforo en verde y una señal de pare">
         <rect width="390" height="300" fill="#121C30"></rect>
         <circle cx="34" cy="36" r="1.6" fill="#8FA6CC"></circle>
         <circle cx="78" cy="22" r="1.2" fill="#8FA6CC"></circle>
@@ -57,15 +82,29 @@
         <rect x="66" y="196" width="5" height="58" fill="#1A2335"></rect>
         <polygon points="52,170 83,170 97,184 97,206 83,220 52,220 38,206 38,184" fill="#E03A4E" stroke="#F2F5FA" stroke-width="3"></polygon>
         <text x="67.5" y="201" text-anchor="middle" font-family="Bungee, Arial Black, sans-serif" font-size="13" fill="#FFFFFF">PARE</text>
-        <ellipse cx="195" cy="294" rx="88" ry="11" fill="#0A0F18" opacity=".55"></ellipse>
-        <rect x="126" y="256" width="12" height="30" rx="6" fill="#121824"></rect>
-        <rect x="252" y="256" width="12" height="30" rx="6" fill="#121824"></rect>
-        <rect x="132" y="226" width="126" height="64" rx="18" fill="#FFC43D"></rect>
-        <rect x="152" y="234" width="86" height="28" rx="9" fill="#16202F"></rect>
-        <rect x="160" y="240" width="70" height="8" rx="4" fill="#2E3C5C"></rect>
-        <rect x="140" y="270" width="28" height="11" rx="5.5" fill="#FF5C6C"></rect>
-        <rect x="222" y="270" width="28" height="11" rx="5.5" fill="#FF5C6C"></rect>
-        <rect x="186" y="272" width="18" height="7" rx="3.5" fill="#16202F"></rect>
+        <g class="heroAuto">
+          <ellipse cx="195" cy="294" rx="88" ry="11" fill="#0A0F18" opacity=".55"></ellipse>
+          <rect x="126" y="256" width="12" height="30" rx="6" fill="#121824"></rect>
+          <rect x="252" y="256" width="12" height="30" rx="6" fill="#121824"></rect>
+          <rect x="132" y="226" width="126" height="64" rx="18" fill="#FFC43D"></rect>
+          <rect x="152" y="234" width="86" height="28" rx="9" fill="#16202F"></rect>
+          <rect x="160" y="240" width="70" height="8" rx="4" fill="#2E3C5C"></rect>
+          <rect x="140" y="270" width="28" height="11" rx="5.5" fill="#FF5C6C"></rect>
+          <rect x="222" y="270" width="28" height="11" rx="5.5" fill="#FF5C6C"></rect>
+          <rect x="186" y="272" width="18" height="7" rx="3.5" fill="#16202F"></rect>
+        </g>
+        <g class="heroMoto">
+          <ellipse cx="195" cy="294" rx="46" ry="9" fill="#0A0F18" opacity=".55"></ellipse>
+          <rect x="186" y="252" width="18" height="42" rx="9" fill="#121824"></rect>
+          <rect x="150" y="224" width="90" height="6" rx="3" fill="#16202F"></rect>
+          <circle cx="152" cy="216" r="6" fill="#33415C"></circle>
+          <circle cx="238" cy="216" r="6" fill="#33415C"></circle>
+          <rect x="168" y="232" width="54" height="32" rx="13" fill="#FFC43D"></rect>
+          <rect x="181" y="254" width="28" height="9" rx="4.5" fill="#FF5C6C"></rect>
+          <rect x="174" y="190" width="42" height="46" rx="16" fill="#2E3C5C"></rect>
+          <circle cx="195" cy="180" r="16" fill="#FFC43D"></circle>
+          <rect x="183" y="182" width="24" height="5" rx="2.5" fill="#B8862A"></rect>
+        </g>
       </svg>
     </div>
 
@@ -75,7 +114,14 @@
         Examen teórico
       </span>
       <h1>TEÓRICO<br><span>DE MANEJO</span></h1>
-      <p class="sub">Practicá para el examen teórico de la licencia de conducir.</p>
+      <p class="sub" id="subMenu">Practicá para el examen teórico de la licencia de conducir.</p>
+      <div class="licencia">
+        <span class="label">Licencia</span>
+        <span class="segBox">
+          <button class="segBtn" data-veh="auto"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 16v-3.5l2.2-4.6A2 2 0 0 1 7 6.8h7.6a2 2 0 0 1 1.5.7L19.5 11h.8a1.7 1.7 0 0 1 1.7 1.7V16h-1.5"></path><path d="M9.2 16h5.6"></path><path d="M3 16h1.8"></path><path d="M4.8 11h14.7"></path><circle cx="7" cy="16.5" r="2.2"></circle><circle cx="17" cy="16.5" r="2.2"></circle></svg>Auto</button>
+          <button class="segBtn" data-veh="moto"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="16" r="3.2"></circle><circle cx="18" cy="16" r="3.2"></circle><path d="M6 16h5.5l3-5h3.2l1.3 5"></path><path d="M9 11h4"></path><path d="M15 7h2.5l1 4"></path></svg>Moto</button>
+        </span>
+      </div>
       <p class="hint" id="avisoSonido" hidden>
         <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5h3.5L13 5v14l-5.5-4.5H4z"></path><path d="M17 9.5a4 4 0 0 1 0 5"></path></svg>
         Tocá la pantalla para activar la música
