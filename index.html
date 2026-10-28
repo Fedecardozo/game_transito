@@ -12,222 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&family=Barlow:wght@400;500;600;700&display=swap">
-<style>
-  :root {
-    --asfalto: #0E1522; --panel: #19202E; --panel2: #243049; --linea: #33415C; --linea2: #2B3752;
-    --texto: #F2F5FA; --apagado: #9FB0CC; --sombra: #0A0F18; --senal: #F2F5FA;
-    --ambar: #FFC43D; --ambar-ink: #16202F; --ambar-bg: #3A2D12; --ambar-dark: #B8862A;
-    --verde: #35D07F; --verde-bg: #163028; --verde-txt: #6BE3A4;
-    --rojo: #FF5C6C; --rojo-bg: #3A1B21; --rojo-txt: #FF9AA4; --rojo-off: #4A2730;
-    --azul: #4C9EF2; --azul-bg: #15263D; --azul-txt: #9CC7FA;
-    --disp: Bungee, "Arial Black", system-ui, sans-serif;
-  }
-  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-  html { -webkit-text-size-adjust: 100%; }
-  body { margin: 0; background: var(--asfalto); color: var(--texto); overflow-x: hidden;
-    font: 17px/1.45 Barlow, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
-  button { touch-action: manipulation; font: inherit; }
-  main { max-width: 520px; margin: 0 auto; padding-bottom: max(28px, env(safe-area-inset-bottom)); }
-  #menu, #fin { padding: 0 max(16px, env(safe-area-inset-left)) 0 max(16px, env(safe-area-inset-right)); }
-  #quiz { padding: 0 max(16px, env(safe-area-inset-left)) 120px max(16px, env(safe-area-inset-right)); }
-  svg { display: block; }
-  [hidden] { display: none !important; }
-
-  .label { font-size: 11.5px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase; color: var(--apagado); margin: 0; }
-  .card { background: var(--panel); border: 1px solid var(--linea); border-radius: 18px; padding: 16px; margin-bottom: 13px; }
-  .hint { color: var(--apagado); font-size: 12.5px; margin: 10px 0 0; display: flex; align-items: center; gap: 8px; }
-  .sub { color: var(--apagado); margin: 0; }
-
-  /* ---------- Menú ---------- */
-  .hero { margin: 0 -16px; }
-  .hero svg { width: 100%; height: auto; }
-  .titulo { padding-top: 16px; }
-  .kicker { display: inline-flex; align-items: center; gap: 6px; background: var(--panel); border: 1px solid var(--linea);
-    color: var(--ambar); border-radius: 999px; padding: 5px 11px; font-size: 11px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; }
-  h1 { font-family: var(--disp); font-size: 33px; line-height: 1.02; margin: 12px 0 8px; letter-spacing: .5px; font-weight: 400; }
-  h1 span { color: var(--ambar); }
-  .titulo .sub { font-size: 14.5px; }
-
-  .perfil { display: flex; align-items: center; gap: 13px; background: var(--panel); border: 1px solid var(--linea);
-    border-radius: 18px; padding: 14px; margin: 18px 0 0; box-shadow: 0 4px 0 var(--sombra); }
-  .perfil .nivel { width: 50px; height: 50px; flex: none; border-radius: 14px; background: var(--panel2); border: 2px solid var(--ambar);
-    display: flex; align-items: center; justify-content: center; font-family: var(--disp); font-size: 19px; color: var(--ambar); }
-  .perfilTxt { flex: 1 1 auto; min-width: 0; }
-  .perfilTop { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
-  .perfilTop b { font-size: 15px; }
-  .perfilTop span { font-size: 12px; color: var(--apagado); font-variant-numeric: tabular-nums; }
-  .xp { height: 9px; border-radius: 5px; background: var(--asfalto); border: 1px solid var(--linea); overflow: hidden; margin-top: 7px; display: flex; }
-  .xp i { display: block; height: 100%; background: var(--ambar); transition: width .5s ease; }
-
-  .modes { display: grid; gap: 10px; }
-  .mode { display: flex; align-items: center; gap: 13px; width: 100%; text-align: left; cursor: pointer;
-    background: var(--panel); color: var(--texto); border: 1px solid var(--linea); border-left: 4px solid var(--linea);
-    border-radius: 16px; padding: 13px 14px; min-height: 76px; box-shadow: 0 4px 0 var(--sombra); }
-  .mode:active:not(:disabled) { transform: translateY(2px); box-shadow: 0 2px 0 var(--sombra); }
-  .mode:disabled { opacity: .45; cursor: default; }
-  .mode .ico { width: 46px; height: 46px; flex: none; border-radius: 13px; display: flex; align-items: center; justify-content: center; }
-  .mode .modeTxt { flex: 1 1 auto; min-width: 0; }
-  .mode b { display: block; font-size: 16.5px; }
-  .mode .modeTxt > span { display: block; color: var(--apagado); font-size: 13px; }
-  .mode .mini { display: block; height: 6px; border-radius: 3px; background: var(--asfalto); border: 1px solid var(--linea2); overflow: hidden; margin-top: 7px; }
-  .mode .mini i { display: block; height: 100%; }
-  .mode .num { flex: none; color: var(--apagado); font-size: 11.5px; font-variant-numeric: tabular-nums; }
-  .mode .go { flex: none; color: var(--ambar); font-size: 20px; line-height: 1; }
-  .mode .badge { display: inline-block; margin-top: 7px; border-radius: 6px; padding: 2px 7px; font-size: 11px; font-weight: 700; letter-spacing: .6px; }
-  .mode .count { flex: none; min-width: 30px; height: 30px; border-radius: 15px; background: var(--rojo); color: var(--ambar-ink);
-    font-family: var(--disp); font-size: 13px; display: flex; align-items: center; justify-content: center; }
-  .m-senales { border-left-color: var(--azul); } .m-senales .ico { background: var(--azul-bg); color: var(--azul); } .m-senales .mini i { background: var(--azul); }
-  .m-teoria { border-left-color: var(--verde); } .m-teoria .ico { background: var(--verde-bg); color: var(--verde); } .m-teoria .mini i { background: var(--verde); }
-  .m-examen { border-left-color: var(--ambar); } .m-examen .ico { background: var(--ambar-bg); color: var(--ambar); } .m-examen .badge { background: var(--ambar-bg); color: var(--ambar); }
-  .m-errores { border-left-color: var(--rojo); } .m-errores .ico { background: var(--rojo-bg); color: var(--rojo); }
-  @media (hover: hover) { .mode:hover:not(:disabled) { border-color: var(--ambar); } }
-
-  .row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
-  .chipsBox { display: flex; gap: 7px; }
-  .chipsBox button { font-size: 14px; font-weight: 700; min-width: 44px; min-height: 44px; border-radius: 12px;
-    background: var(--panel); border: 1px solid var(--linea); color: var(--apagado); cursor: pointer; }
-  .chipsBox button.on { background: var(--ambar); border-color: var(--ambar); color: var(--ambar-ink); box-shadow: 0 3px 0 var(--sombra); }
-  .toggles { display: flex; gap: 8px; justify-content: flex-start; }
-  .tg { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 14px; border-radius: 999px;
-    background: var(--panel); border: 1px solid var(--linea); color: var(--apagado); font-size: 13.5px; font-weight: 600; cursor: pointer; }
-  .tg[aria-pressed="true"] { color: var(--texto); border-color: var(--azul); }
-  .tg .i { color: var(--azul); display: none; }
-  .tg[aria-pressed="true"] .on, .tg[aria-pressed="false"] .off { display: inline-flex; }
-  .tg[aria-pressed="false"] .i { color: var(--apagado); }
-
-  /* ---------- Partida ---------- */
-  .head { position: sticky; top: 0; z-index: 5; background: var(--asfalto);
-    margin: 0 -16px 12px; padding: max(14px, env(safe-area-inset-top)) 16px 10px; }
-  .hud { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-  .vidas { display: flex; align-items: center; gap: 4px; }
-  .vidas svg { color: var(--rojo); }
-  .vidas svg.off { color: var(--rojo-off); }
-  .pill { display: inline-flex; align-items: center; gap: 6px; background: var(--panel); border: 1px solid var(--linea);
-    border-radius: 999px; padding: 6px 12px; font-size: 14px; font-weight: 700; font-variant-numeric: tabular-nums; }
-  .pill svg { color: var(--apagado); }
-  .pts { display: inline-flex; align-items: center; gap: 5px; font-family: var(--disp); font-size: 16px; color: var(--ambar); font-variant-numeric: tabular-nums; }
-  .combo { display: inline-flex; align-items: center; gap: 5px; background: var(--ambar-bg); color: var(--ambar);
-    border-radius: 7px; padding: 3px 8px; font-family: var(--disp); font-size: 12px; }
-  .icon { width: 44px; height: 44px; flex: none; border-radius: 13px; background: var(--panel); border: 1px solid var(--linea);
-    color: var(--texto); cursor: pointer; display: flex; align-items: center; justify-content: center; }
-  .metaRow { margin-top: 12px; }
-  .segs { display: flex; gap: 3px; margin-top: 7px; }
-  .segs i { flex: 1 1 0; height: 7px; border-radius: 2px; background: var(--linea2); }
-  .segs i.ok { background: var(--verde); } .segs i.bad { background: var(--rojo); } .segs i.now { background: var(--ambar); }
-  .bar { height: 7px; border-radius: 4px; background: var(--linea2); overflow: hidden; margin-top: 7px; }
-  .bar i { display: block; height: 100%; background: var(--ambar); transition: width .2s; }
-
-  .stage { transition: transform .28s ease, opacity .28s ease; padding: 0; overflow: hidden; }
-  .stage.out { transform: translateX(-40px); opacity: 0; }
-  .stage.pre { transform: translateX(40px); opacity: 0; transition: none; }
-  .signWrap { position: relative; background: var(--senal); border-bottom: 1px solid var(--linea);
-    display: flex; align-items: center; justify-content: center; padding: 16px; height: clamp(170px, 30vh, 236px); }
-  .signWrap::before { content: ""; position: absolute; left: 0; top: 0; right: 0; height: 7px; background: var(--azul); }
-  .signWrap img { max-width: 100%; max-height: 100%; }
-  .tag { position: absolute; top: 15px; left: 15px; max-width: calc(100% - 30px); background: var(--azul-bg); color: var(--azul-txt);
-    border-radius: 7px; padding: 4px 9px; font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; }
-  .tag.solo { position: static; display: inline-block; background: var(--verde-bg); color: var(--verde-txt); margin: 16px 16px 0; }
-  .q { font-size: 20px; font-weight: 700; line-height: 1.28; margin: 14px 16px 16px; }
-  .opts { display: grid; gap: 9px; padding: 0 16px 16px; }
-  .opt { display: flex; align-items: center; gap: 12px; text-align: left; color: var(--texto); background: var(--panel);
-    border: 1.5px solid var(--linea); border-radius: 14px; padding: 12px 14px; min-height: 58px; cursor: pointer; box-shadow: 0 3px 0 var(--sombra); }
-  .opt:active:not(:disabled) { transform: translateY(2px); box-shadow: 0 1px 0 var(--sombra); }
-  .opt:disabled { cursor: default; }
-  .opt .k { flex: none; width: 27px; height: 27px; border-radius: 9px; background: var(--panel2); color: var(--apagado);
-    font-family: var(--disp); font-size: 12px; display: flex; align-items: center; justify-content: center; }
-  .opt .t { font-size: 16px; font-weight: 500; }
-  .opt.off { opacity: .4; box-shadow: none; }
-  .opt.ok { background: var(--verde-bg); border: 2px solid var(--verde); animation: pop .3s ease; }
-  .opt.ok .k { background: var(--verde); color: var(--asfalto); }
-  .opt.ok .t { font-weight: 700; }
-  .opt.bad { background: var(--rojo-bg); border: 2px solid var(--rojo); animation: shake .3s ease; }
-  .opt.bad .k { background: var(--rojo); color: var(--ambar-ink); }
-  @media (hover: hover) { .opt:hover:not(:disabled) { border-color: var(--ambar); } }
-  @keyframes pop { 0% { transform: scale(1); } 40% { transform: scale(1.03); } 100% { transform: scale(1); } }
-  @keyframes shake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
-
-  .banda { position: fixed; left: 0; right: 0; bottom: 0; z-index: 10; animation: sube .2s ease;
-    padding: 0 max(16px, env(safe-area-inset-left)) max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-right)); }
-  .banda > .bandaIn { max-width: 520px; margin: 0 auto; border-radius: 18px 18px 0 0; padding: 12px 14px 14px; }
-  .banda.ok > .bandaIn { background: var(--verde-bg); border-top: 2px solid var(--verde); }
-  .banda.bad > .bandaIn { background: var(--rojo-bg); border-top: 2px solid var(--rojo); }
-  .auto { height: 5px; border-radius: 3px; background: var(--asfalto); overflow: hidden; margin-bottom: 12px; }
-  .auto i { display: block; height: 100%; width: 0; }
-  .banda.ok .auto i { background: var(--verde); } .banda.bad .auto i { background: var(--rojo); }
-  .auto.run i { width: 100%; transition: width var(--dur) linear; }
-  .bandaRow { display: flex; align-items: center; gap: 12px; }
-  .bandaIco { width: 42px; height: 42px; flex: none; border-radius: 14px; color: var(--ambar-ink); display: flex; align-items: center; justify-content: center; }
-  .banda.ok .bandaIco { background: var(--verde); } .banda.bad .bandaIco { background: var(--rojo); }
-  .banda .ico-ok, .banda .ico-bad { display: none; }
-  .banda.ok .ico-ok, .banda.bad .ico-bad { display: block; }
-  .bandaTxt { flex: 1 1 auto; min-width: 0; }
-  .bandaTxt b { display: block; font-family: var(--disp); font-size: 18px; letter-spacing: .4px; font-weight: 400; }
-  .banda.ok .bandaTxt b { color: var(--verde-txt); } .banda.bad .bandaTxt b { color: var(--rojo-txt); }
-  .bandaTxt span { display: block; font-size: 13px; color: var(--texto); opacity: .85; }
-  .btnSigue { flex: none; display: inline-flex; align-items: center; gap: 6px; font-family: var(--disp); font-size: 13px;
-    border: 0; border-radius: 13px; padding: 13px 15px; cursor: pointer; box-shadow: 0 3px 0 var(--sombra); }
-  .banda.ok .btnSigue { background: var(--verde); color: var(--asfalto); }
-  .banda.bad .btnSigue { background: var(--texto); color: var(--ambar-ink); }
-  @keyframes sube { from { transform: translateY(100%); } }
-
-  .pausa { position: fixed; inset: 0; z-index: 20; display: flex; align-items: center; justify-content: center; padding: 20px;
-    background: rgba(8, 12, 20, .82); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); animation: fade .2s ease; }
-  .pausa .box { width: 100%; max-width: 360px; background: var(--panel); border: 1px solid var(--linea); border-radius: 24px;
-    padding: 24px 20px; box-shadow: 0 6px 0 var(--sombra); text-align: center; }
-  .pausa h2 { font-family: var(--disp); font-size: 30px; margin: 0 0 4px; letter-spacing: 1px; font-weight: 400; }
-  .pausa .sub { font-size: 14px; margin-bottom: 18px; }
-  .pausa .ico { display: inline-flex; width: 56px; height: 56px; border-radius: 18px; background: var(--panel2);
-    border: 2px solid var(--ambar); color: var(--ambar); align-items: center; justify-content: center; margin-bottom: 14px; }
-  .pausa .toggles { justify-content: center; margin: 18px 0; }
-  @keyframes fade { from { opacity: 0; } }
-
-  .tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 9px; }
-  .tiles div { background: var(--asfalto); border: 1px solid var(--linea2); border-radius: 14px; padding: 11px 6px; }
-  .tiles b { display: block; font-family: var(--disp); font-size: 20px; font-variant-numeric: tabular-nums; font-weight: 400; }
-  .tiles span { font-size: 11px; color: var(--apagado); letter-spacing: .6px; text-transform: uppercase; }
-
-  .btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; font-family: var(--disp); font-size: 15px;
-    background: var(--ambar); color: var(--ambar-ink); border: 0; border-radius: 15px; min-height: 54px; cursor: pointer; box-shadow: 0 4px 0 var(--sombra); }
-  .btn:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--sombra); }
-  .btn.sec { font-family: inherit; font-size: 15px; font-weight: 700; background: transparent; color: var(--texto);
-    border: 1.5px solid var(--linea); box-shadow: none; min-height: 52px; }
-  .btn.err { color: var(--rojo-txt); border-color: var(--rojo); }
-  .btn.ghost { font-family: inherit; font-size: 14.5px; font-weight: 600; background: none; border: 0; color: var(--apagado);
-    box-shadow: none; min-height: 48px; }
-  .actions { display: grid; gap: 10px; margin-top: 16px; }
-
-  /* ---------- Resultado ---------- */
-  .rank { margin: 0 -16px 14px; padding: 22px 20px 20px; text-align: center; background: var(--verde-bg); border-bottom: 2px solid var(--verde); }
-  .rank.bad { background: var(--rojo-bg); border-bottom-color: var(--rojo); }
-  .rankBadge { display: inline-block; background: var(--verde); color: var(--asfalto); font-family: var(--disp); font-size: 13px;
-    letter-spacing: 1.4px; border-radius: 999px; padding: 6px 14px; }
-  .rank.bad .rankBadge { background: var(--rojo); color: var(--ambar-ink); }
-  .rank svg.carnet { width: 156px; height: auto; margin: 14px auto 10px; }
-  .rkFill { fill: var(--verde); } .rank.bad .rkFill { fill: var(--rojo); }
-  .stars { display: flex; justify-content: center; gap: 7px; margin-bottom: 8px; }
-  .stars svg { color: var(--ambar); }
-  .stars svg.off { color: #6A7893; }
-  .score { font-family: var(--disp); font-size: 46px; line-height: 1; font-variant-numeric: tabular-nums; }
-  .score .d { font-size: 28px; color: var(--verde-txt); }
-  .rank.bad .score .d { color: var(--rojo-txt); }
-  .rank .sub { margin-top: 8px; font-size: 14.5px; color: var(--texto); opacity: .85; }
-  .xp2 { height: 11px; border-radius: 6px; }
-  .xp2 .prev { background: var(--ambar-dark); }
-  .stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-bottom: 13px; }
-  .stats div { background: var(--panel); border: 1px solid var(--linea); border-radius: 16px; padding: 12px 13px; }
-  .stats b { display: block; font-family: var(--disp); font-size: 21px; font-variant-numeric: tabular-nums; font-weight: 400; }
-  .stats span { font-size: 11.5px; color: var(--apagado); letter-spacing: .6px; text-transform: uppercase; }
-  .review { list-style: none; padding: 0; margin: 0; }
-  .review li { display: flex; gap: 12px; align-items: center; padding: 9px 0; border-top: 1px solid var(--linea2); }
-  .review img { width: 50px; height: 50px; object-fit: contain; background: var(--senal); border-radius: 10px; padding: 3px; flex: none; }
-  .review small { display: block; color: var(--apagado); font-size: 13px; }
-  .review .ok { font-size: 14px; font-weight: 700; color: var(--verde-txt); }
-  .review .bad { display: block; font-size: 12.5px; color: var(--rojo-txt); }
-
-  @media (prefers-reduced-motion: reduce) {
-    .stage, .stage.out, .opt.ok, .opt.bad, .banda, .pausa, .xp i { transition: none; animation: none; transform: none; }
-  }
-</style>
+<link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
 <main>
@@ -301,11 +86,11 @@
       <div class="nivel" id="nivelNum">1</div>
       <div class="perfilTxt">
         <div class="perfilTop"><b id="nivelNombre">Peatón atento</b><span id="xpTxt">0 / 500 XP</span></div>
-        <div class="xp"><i id="xpBar" style="width: 0"></i></div>
+        <div class="xp"><i id="xpBar"></i></div>
       </div>
     </div>
 
-    <h2 class="label" style="margin: 22px 0 10px">Elegí tu modo</h2>
+    <h2 class="label tituloModos">Elegí tu modo</h2>
 
     <div class="modes">
       <button class="mode m-senales" data-mode="senales">
@@ -315,7 +100,7 @@
         <span class="modeTxt">
           <b>Señales de tránsito</b>
           <span>¿Qué significa esta señal?</span>
-          <span class="mini"><i id="progSenales" style="width: 0"></i></span>
+          <span class="mini"><i id="progSenales"></i></span>
         </span>
         <span class="num" id="nSenales"></span>
       </button>
@@ -327,7 +112,7 @@
         <span class="modeTxt">
           <b>Teoría</b>
           <span>Velocidades, prioridad, adelantamiento…</span>
-          <span class="mini"><i id="progTeoria" style="width: 0"></i></span>
+          <span class="mini"><i id="progTeoria"></i></span>
         </span>
         <span class="num" id="nTeoria"></span>
       </button>
@@ -359,7 +144,7 @@
     <div class="row" id="cant">
       <span class="label">Preguntas</span>
       <span class="chipsBox">
-        <button data-n="10">10</button><button data-n="20" class="on">20</button><button data-n="40">40</button><button data-n="0" style="min-width: 58px; font-size: 13px">Todas</button>
+        <button data-n="10">10</button><button data-n="20" class="on">20</button><button data-n="40">40</button><button data-n="0" class="todas">Todas</button>
       </span>
     </div>
 
@@ -437,9 +222,9 @@
         <h2>PAUSA</h2>
         <p class="sub" id="pausaSub"></p>
         <div class="tiles">
-          <div><b style="color: var(--verde)" id="pAciertos">0</b><span>Aciertos</span></div>
-          <div><b style="color: var(--rojo)" id="pErrores">0</b><span>Errores</span></div>
-          <div><b style="color: var(--ambar)" id="pTiempo">0:00</b><span>Tiempo</span></div>
+          <div><b class="c-verde" id="pAciertos">0</b><span>Aciertos</span></div>
+          <div><b class="c-rojo" id="pErrores">0</b><span>Errores</span></div>
+          <div><b class="c-ambar" id="pTiempo">0:00</b><span>Tiempo</span></div>
         </div>
         <div class="toggles">
           <button class="tg" data-tg="musica" aria-pressed="true">
@@ -467,7 +252,7 @@
             Salir al menú
           </button>
         </div>
-        <p class="hint" style="justify-content: center">Si minimizás la app, el juego se pausa solo.</p>
+        <p class="hint centro">Si minimizás la app, el juego se pausa solo.</p>
       </div>
     </div>
   </section>
@@ -496,18 +281,18 @@
 
     <div class="card">
       <div class="perfilTop">
-        <b id="xpGanado" style="display: inline-flex; align-items: center; gap: 7px"></b>
+        <b id="xpGanado" class="xpGanado"></b>
         <span id="xpNivelTxt"></span>
       </div>
-      <div class="xp xp2" style="margin-top: 9px"><i class="prev" id="xpBarPrev" style="width: 0"></i><i id="xpBarNew" style="width: 0"></i></div>
+      <div class="xp xp2"><i class="prev" id="xpBarPrev"></i><i id="xpBarNew"></i></div>
       <p class="hint" id="xpFalta"></p>
     </div>
 
     <div class="stats">
       <div><b id="tTotal"></b><span>Tiempo total</span></div>
       <div><b id="tProm"></b><span>Por pregunta</span></div>
-      <div><b id="sCombo" style="color: var(--ambar)"></b><span>Combo máximo</span></div>
-      <div><b id="sRacha" style="color: var(--verde)"></b><span>Racha más larga</span></div>
+      <div><b id="sCombo" class="c-ambar"></b><span>Combo máximo</span></div>
+      <div><b id="sRacha" class="c-verde"></b><span>Racha más larga</span></div>
     </div>
 
     <div class="card" id="revCard">
@@ -532,409 +317,9 @@
   </section>
 </main>
 
-<script src="senales.js"></script>
-<script src="preguntas.js"></script>
-<script src="audio.js"></script>
-<script>
-const $ = id => document.getElementById(id);
-const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.random() * (i + 1) | 0; [a[i], a[j]] = [a[j], a[i]]; } return a; };
-const SVG = "http://www.w3.org/2000/svg";
-
-// Cada pregunta tiene un id estable para poder guardar los errores
-const bancoSenales = SENALES.map(s => ({ id: "s:" + s.img, tipo: "senal", tag: s.cat, s }));
-const bancoTeoria = PREGUNTAS.map(p => ({ id: "t:" + p.q, tipo: "teoria", tag: p.tema, p }));
-const porId = new Map([...bancoSenales, ...bancoTeoria].map(x => [x.id, x]));
-
-function opcionesSenal(s) {
-  const nombres = new Set([s.name]);
-  const misma = shuffle(SENALES.filter(o => o.cat === s.cat && o.name !== s.name));
-  const otras = shuffle(SENALES.filter(o => o.cat !== s.cat));
-  for (const o of [...misma, ...otras]) { if (nombres.size === 4) break; nombres.add(o.name); }
-  return { q: "¿Qué significa esta señal?", correcta: s.name, o: shuffle([...nombres]) };
-}
-function armar(item) {
-  if (item.tipo === "senal") return { ...opcionesSenal(item.s), img: item.s.img };
-  return { q: item.p.q, correcta: item.p.o[0], o: shuffle(item.p.o) };
-}
-
-// Lo que se guarda en el navegador: errores, XP, preguntas dominadas y mejor examen
-const KEY = "teorico-errores", PERFIL = "teorico-perfil";
-let errores = new Set();
-try { errores = new Set(JSON.parse(localStorage.getItem(KEY) || "[]")); } catch {}
-const guardar = () => { try { localStorage.setItem(KEY, JSON.stringify([...errores])); } catch {} };
-
-let perfil = { xp: 0, mejor: 0, mejorTotal: 0 };
-let dominadas = new Set();
-try {
-  const p = JSON.parse(localStorage.getItem(PERFIL) || "{}");
-  perfil.xp = p.xp || 0; perfil.mejor = p.mejor || 0; perfil.mejorTotal = p.mejorTotal || 0;
-  dominadas = new Set(p.dominadas || []);
-} catch {}
-const guardarPerfil = () => {
-  try { localStorage.setItem(PERFIL, JSON.stringify({ ...perfil, dominadas: [...dominadas] })); } catch {}
-};
-
-const NIVELES = ["Peatón atento", "Aprendiz al volante", "Conductor prudente", "Baqueano del asfalto", "Maestro del tránsito"];
-const XP_NIVEL = 500;
-const nivel = xp => Math.floor(xp / XP_NIVEL) + 1;
-const nombreNivel = xp => NIVELES[Math.min(nivel(xp) - 1, NIVELES.length - 1)];
-
-let cantidad = 20;
-document.querySelectorAll("#cant button").forEach(b => b.onclick = () => {
-  document.querySelectorAll("#cant button").forEach(x => x.classList.toggle("on", x === b));
-  cantidad = +b.dataset.n;
-});
-
-let ronda = [], idx = 0, aciertos = 0, falladas = [], respondida = false, ultimoModo = "senales";
-let puntos = 0, combo = 0, comboMax = 0, racha = 0, rachaMax = 0, vidas = 0, conVidas = false;
-let inicio = 0, reloj = null, espera = null, pausadoDesde = 0;
-const PAUSA_BIEN = 900, PAUSA_MAL = 2200, ANIM = 280, VIDAS = 3, BASE = 50;
-
-const fmt = ms => { const s = Math.floor(ms / 1000); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`; };
-const tick = () => { $("relojTxt").textContent = fmt(Date.now() - inicio); };
-function parar() { clearInterval(reloj); clearTimeout(espera); reloj = espera = null; pausadoDesde = 0; $("pausa").hidden = true; $("banda").hidden = true; }
-
-const iconoVida = apagada => {
-  const svg = document.createElementNS(SVG, "svg");
-  svg.setAttribute("viewBox", "0 0 24 24"); svg.setAttribute("width", "20"); svg.setAttribute("height", "20");
-  svg.setAttribute("fill", "currentColor"); svg.setAttribute("aria-hidden", "true");
-  if (apagada) svg.setAttribute("class", "off");
-  const p = document.createElementNS(SVG, "path");
-  p.setAttribute("d", "M5 11.2 6.7 6.9A2.2 2.2 0 0 1 8.7 5.5h6.6a2.2 2.2 0 0 1 2 1.4l1.7 4.3v5.3a1 1 0 0 1-1 1h-1.3a1 1 0 0 1-1-1V16H8.3v.5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1z");
-  svg.appendChild(p);
-  return svg;
-};
-function pintarVidas() {
-  const box = $("vidas");
-  box.hidden = !conVidas;
-  if (!conVidas) return;
-  box.innerHTML = "";
-  box.setAttribute("aria-label", `${vidas} vidas de ${VIDAS}`);
-  for (let i = 0; i < VIDAS; i++) box.appendChild(iconoVida(i >= vidas));
-}
-
-function pintarCombo() {
-  $("combo").hidden = combo < 2;
-  $("comboTxt").textContent = "x" + combo;
-}
-
-// Pausa: congela el reloj, el avance automático y la música
-function pausar() {
-  if ($("quiz").hidden || pausadoDesde) return;
-  pausadoDesde = Date.now();
-  clearInterval(reloj); clearTimeout(espera); reloj = espera = null;
-  $("stage").classList.remove("out");
-  $("auto").classList.remove("run");
-  $("pausaSub").textContent = `Pregunta ${idx + 1} de ${ronda.length} · el reloj está detenido`;
-  $("pAciertos").textContent = aciertos;
-  $("pErrores").textContent = falladas.length;
-  $("pTiempo").textContent = fmt(pausadoDesde - inicio);
-  $("pausa").hidden = false;
-  Sonido.stop();
-}
-function continuar() {
-  if (!pausadoDesde) return;
-  inicio += Date.now() - pausadoDesde;
-  pausadoDesde = 0;
-  $("pausa").hidden = true;
-  tick(); reloj = setInterval(tick, 500);
-  Sonido.play();
-  if (respondida) espera = setTimeout(siguiente, 400);
-}
-
-function pintarToggles() {
-  document.querySelectorAll("[data-tg]").forEach(b => b.setAttribute("aria-pressed", Sonido[b.dataset.tg]));
-}
-document.querySelectorAll("[data-tg]").forEach(b => b.onclick = () => {
-  if (b.dataset.tg === "musica") {
-    Sonido.setMusica(!Sonido.musica);
-    if (!Sonido.musica) Sonido.stop(); else if (!pausadoDesde) Sonido.play();
-  }
-  else { Sonido.setEfectos(!Sonido.efectos); if (Sonido.efectos) Sonido.bien(); }
-  pintarToggles();
-});
-
-function pantalla(id) { for (const s of ["menu", "quiz", "fin"]) $(s).hidden = s !== id; window.scrollTo(0, 0); }
-
-function refrescarMenu() {
-  const n = [...errores].filter(id => porId.has(id)).length;
-  $("nErrores").textContent = n ? `${n} pregunta${n > 1 ? "s" : ""} para repasar` : "Todavía no tenés errores guardados";
-  $("cErrores").textContent = n;
-  $("cErrores").hidden = !n;
-  $("btnErrores").disabled = !n;
-
-  const ds = bancoSenales.filter(x => dominadas.has(x.id)).length;
-  const dt = bancoTeoria.filter(x => dominadas.has(x.id)).length;
-  $("nSenales").textContent = `${ds}/${bancoSenales.length}`;
-  $("progSenales").style.width = (ds / bancoSenales.length * 100) + "%";
-  $("nTeoria").textContent = `${dt}/${bancoTeoria.length}`;
-  $("progTeoria").style.width = (dt / bancoTeoria.length * 100) + "%";
-  $("mejorExamen").textContent = perfil.mejorTotal ? `MEJOR: ${perfil.mejor}/${perfil.mejorTotal}` : "TODAVÍA SIN JUGAR";
-
-  $("nivelNum").textContent = nivel(perfil.xp);
-  $("nivelNombre").textContent = nombreNivel(perfil.xp);
-  const dentro = perfil.xp % XP_NIVEL;
-  $("xpTxt").textContent = `${dentro} / ${XP_NIVEL} XP`;
-  $("xpBar").style.width = (dentro / XP_NIVEL * 100) + "%";
-}
-
-function empezar(modo, lista) {
-  ultimoModo = modo;
-  let items;
-  const tomar = (arr, n) => n ? shuffle(arr).slice(0, n) : shuffle(arr);
-  if (lista) items = shuffle(lista);
-  else if (modo === "senales") items = tomar(bancoSenales, cantidad);
-  else if (modo === "teoria") items = tomar(bancoTeoria, cantidad);
-  else if (modo === "mixto") {
-    const n = cantidad || bancoSenales.length + bancoTeoria.length;
-    const t = Math.min(Math.floor(n / 2), bancoTeoria.length);
-    items = shuffle([...tomar(bancoTeoria, t), ...tomar(bancoSenales, n - t)]);
-  } else items = shuffle([...errores].map(id => porId.get(id)).filter(Boolean)).slice(0, cantidad || undefined);
-  if (!items.length) return;
-
-  ronda = items.map(it => ({ it, ...armar(it) }));
-  idx = 0; aciertos = 0; falladas = [];
-  puntos = 0; combo = 0; comboMax = 0; racha = 0; rachaMax = 0;
-  conVidas = modo === "mixto"; vidas = VIDAS;
-  parar();
-  $("stage").className = "card stage";
-  pintarVidas(); pintarCombo();
-
-  // Con rondas largas una casilla por pregunta no se vería: ahí va una barra común
-  const cortas = ronda.length <= 30;
-  $("segs").hidden = !cortas;
-  $("barWrap").hidden = cortas;
-  if (cortas) {
-    $("segs").innerHTML = "";
-    for (let i = 0; i < ronda.length; i++) $("segs").appendChild(document.createElement("i"));
-  }
-
-  pantalla("quiz"); mostrar();
-  inicio = Date.now(); tick(); reloj = setInterval(tick, 500);
-  Sonido.play();
-}
-
-function pintarAvance() {
-  if ($("segs").hidden) $("barra").style.width = (idx / ronda.length * 100) + "%";
-  else {
-    const casillas = $("segs").children;
-    for (const c of casillas) if (c.className === "now") c.className = "";
-    if (casillas[idx]) casillas[idx].className = "now";
-  }
-}
-
-function mostrar() {
-  const r = ronda[idx];
-  respondida = false;
-  $("prog").textContent = `Pregunta ${idx + 1} / ${ronda.length}`;
-  $("pts").textContent = puntos;
-  pintarAvance();
-  $("sign").hidden = !r.img;
-  $("tag").hidden = !!r.img;
-  if (r.img) { $("img").src = r.img; $("tagSign").textContent = r.it.tag; }
-  else $("tag").textContent = r.it.tag;
-  $("preg").textContent = r.q;
-  $("banda").hidden = true;
-  $("auto").classList.remove("run");
-  const prox = ronda[idx + 1];
-  if (prox && prox.img) new Image().src = prox.img;
-  const box = $("opts"); box.innerHTML = "";
-  r.o.forEach((txt, i) => {
-    const b = document.createElement("button");
-    b.className = "opt";
-    b.innerHTML = '<span class="k"></span><span class="t"></span>';
-    b.firstChild.textContent = "ABCD"[i];
-    b.lastChild.textContent = txt;
-    b.onclick = () => responder(i);
-    box.appendChild(b);
-  });
-}
-
-function responder(i) {
-  if (respondida || pausadoDesde) return;
-  respondida = true;
-  const r = ronda[idx], botones = [...$("opts").children];
-  const bien = r.o[i] === r.correcta;
-  const casilla = $("segs").hidden ? null : $("segs").children[idx];
-
-  botones.forEach((b, j) => {
-    b.disabled = true;
-    if (r.o[j] === r.correcta) b.classList.add("ok");
-    else if (j !== i) b.classList.add("off");
-  });
-
-  if (bien) {
-    aciertos++; combo++; racha++;
-    comboMax = Math.max(comboMax, combo); rachaMax = Math.max(rachaMax, racha);
-    const gana = BASE + Math.min(combo - 1, 5) * 10;
-    puntos += gana;
-    errores.delete(r.it.id); dominadas.add(r.it.id);
-    Sonido.bien();
-    if (casilla) casilla.className = "ok";
-    $("banda").className = "banda ok";
-    $("bandaTitulo").textContent = "¡CORRECTO!";
-    $("bandaDet").textContent = `+${gana} puntos` + (combo > 1 ? ` · combo x${combo}` : "");
-  } else {
-    combo = 0; racha = 0;
-    botones[i].classList.add("bad");
-    errores.add(r.it.id); dominadas.delete(r.it.id);
-    falladas.push({ r, elegida: r.o[i] });
-    if (conVidas) vidas--;
-    Sonido.mal();
-    if (casilla) casilla.className = "bad";
-    $("banda").className = "banda bad";
-    $("bandaTitulo").textContent = conVidas && !vidas ? "SIN VIDAS" : "INCORRECTO";
-    $("bandaDet").textContent = (conVidas ? "−1 vida · " : "") + "la correcta está en verde";
-  }
-
-  pintarVidas(); pintarCombo();
-  guardar(); guardarPerfil();
-  $("pts").textContent = puntos;
-  $("banda").hidden = false;
-
-  const pausa = bien ? PAUSA_BIEN : PAUSA_MAL;
-  const auto = $("auto");
-  auto.style.setProperty("--dur", pausa + "ms");
-  void auto.offsetWidth;
-  auto.classList.add("run");
-  espera = setTimeout(siguiente, pausa);
-}
-
-function siguiente() {
-  clearTimeout(espera);
-  if (conVidas && !vidas) return terminar();
-  const st = $("stage");
-  st.classList.add("out");
-  $("banda").hidden = true;
-  espera = setTimeout(() => {
-    st.classList.remove("out");
-    if (++idx >= ronda.length) return terminar();
-    st.classList.add("pre");
-    mostrar();
-    window.scrollTo(0, 0);
-    void st.offsetWidth;
-    st.classList.remove("pre");
-  }, ANIM);
-}
-
-function estrellas(pct) { return pct >= 95 ? 3 : pct >= 80 ? 2 : pct >= 60 ? 1 : 0; }
-
-function pintarEstrellas(n) {
-  const box = $("stars"); box.innerHTML = "";
-  box.setAttribute("aria-label", `${n} estrellas de 3`);
-  for (let i = 0; i < 3; i++) {
-    const svg = document.createElementNS(SVG, "svg");
-    svg.setAttribute("viewBox", "0 0 24 24"); svg.setAttribute("width", "31"); svg.setAttribute("height", "31");
-    svg.setAttribute("aria-hidden", "true");
-    const p = document.createElementNS(SVG, "path");
-    p.setAttribute("d", "M12 2.5l2.9 6.1 6.6.9-4.8 4.6 1.2 6.6L12 17.6 6.1 20.7l1.2-6.6L2.5 9.5l6.6-.9z");
-    if (i < n) { svg.setAttribute("fill", "currentColor"); }
-    else { svg.setAttribute("class", "off"); svg.setAttribute("fill", "none"); p.setAttribute("stroke", "currentColor"); p.setAttribute("stroke-width", "2"); }
-    svg.appendChild(p); box.appendChild(svg);
-  }
-}
-
-function terminar() {
-  const ms = Date.now() - inicio;
-  parar();
-  const hechas = respondida ? idx + 1 : idx;
-  const total = conVidas && !vidas ? hechas : ronda.length;
-  const pct = total ? Math.round(aciertos / total * 100) : 0;
-  const aprobado = conVidas && !vidas ? false : pct >= 70;
-  const estr = conVidas && !vidas ? 0 : estrellas(pct);
-
-  // XP: una parte de los puntos de la ronda
-  const xpGana = Math.round(puntos / 5);
-  const xpAntes = perfil.xp;
-  perfil.xp += xpGana;
-  if (conVidas && aciertos > perfil.mejor) { perfil.mejor = aciertos; perfil.mejorTotal = ronda.length; }
-  guardarPerfil();
-
-  $("barra").style.width = "100%";
-  $("rank").className = aprobado ? "rank" : "rank bad";
-  $("rankBadge").textContent = conVidas && !vidas ? "SIN VIDAS" : aprobado ? "APROBADO" : "NO APROBADO";
-  $("rankSello").setAttribute("d", aprobado ? "M138 86.5 144 92.5 155 80.5" : "M139 79 153 93 M153 79 139 93");
-  pintarEstrellas(estr);
-  $("score").innerHTML = '<span class="n"></span><span class="d"></span>';
-  $("score").firstChild.textContent = aciertos;
-  $("score").lastChild.textContent = " / " + total;
-  $("pct").textContent = `${pct}% correctas · ${puntos} puntos en ${fmt(ms)}` + (pct === 100 ? " — ¡perfecto!" : "");
-
-  $("tTotal").textContent = fmt(ms);
-  $("tProm").textContent = (ms / Math.max(total, 1) / 1000).toFixed(1).replace(".", ",") + " s";
-  $("sCombo").textContent = "x" + Math.max(comboMax, 1);
-  $("sRacha").textContent = rachaMax;
-
-  $("xpGanado").textContent = `+${xpGana} XP`;
-  $("xpNivelTxt").textContent = `Nivel ${nivel(perfil.xp)} · ${perfil.xp % XP_NIVEL} / ${XP_NIVEL}`;
-  const antes = nivel(xpAntes) === nivel(perfil.xp) ? xpAntes % XP_NIVEL : 0;
-  $("xpBarPrev").style.width = (antes / XP_NIVEL * 100) + "%";
-  $("xpBarNew").style.width = ((perfil.xp % XP_NIVEL - antes) / XP_NIVEL * 100) + "%";
-  const falta = XP_NIVEL - perfil.xp % XP_NIVEL;
-  $("xpFalta").textContent = `${falta} XP más y subís a Nivel ${nivel(perfil.xp) + 1} · ${nombreNivel(perfil.xp + XP_NIVEL)}`;
-
-  $("repErr").hidden = !falladas.length;
-  $("revCard").hidden = !falladas.length;
-  $("repErrTxt").textContent = `Repasar ${falladas.length === 1 ? "la que fallé" : "las " + falladas.length + " que fallé"}`;
-  $("revTitulo").textContent = `Para repasar · ${falladas.length}`;
-  const ul = $("rev"); ul.innerHTML = "";
-  for (const { r, elegida } of falladas) {
-    const li = document.createElement("li");
-    if (r.img) { const im = document.createElement("img"); im.src = r.img; im.alt = ""; li.appendChild(im); }
-    const d = document.createElement("div");
-    d.innerHTML = '<small></small><div class="ok"></div><small class="bad"></small>';
-    d.children[0].textContent = r.img ? "Señal · " + r.it.tag : r.q;
-    d.children[1].textContent = r.correcta;
-    d.children[2].textContent = "Respondiste: " + elegida;
-    li.appendChild(d); ul.appendChild(li);
-  }
-
-  Sonido.fin(aprobado);
-  refrescarMenu();
-  pantalla("fin");
-}
-
-document.querySelectorAll(".mode").forEach(b => b.onclick = () => empezar(b.dataset.mode));
-$("salir").onclick = () => { parar(); $("stage").className = "card stage"; refrescarMenu(); pantalla("menu"); };
-$("reiniciar").onclick = () => { parar(); empezar(ultimoModo); };
-$("menuBtn").onclick = () => pantalla("menu");
-$("otraVez").onclick = () => empezar(ultimoModo);
-$("repErr").onclick = () => empezar("repaso", falladas.map(f => f.r.it));
-$("btnPausa").onclick = pausar;
-$("continuar").onclick = continuar;
-$("btnSigue").onclick = () => { if (respondida && !pausadoDesde) siguiente(); };
-
-// Si se sale de la app o se bloquea el celular, se pausa solo y se corta el sonido
-document.addEventListener("visibilitychange", () => {
-  if (document.hidden) { if (reloj) pausar(); Sonido.dormir(); }
-  else if (!pausadoDesde) Sonido.play();
-});
-window.addEventListener("pagehide", () => Sonido.dormir());
-
-// La música arranca al entrar; si el navegador la bloquea, arranca con el primer toque
-function activarSonido() {
-  if (!pausadoDesde) Sonido.play();
-  setTimeout(() => {
-    if (Sonido.bloqueado) return;
-    $("avisoSonido").hidden = true;
-    for (const ev of ["pointerdown", "keydown", "touchend"]) document.removeEventListener(ev, activarSonido, true);
-  }, 150);
-}
-for (const ev of ["pointerdown", "keydown", "touchend"]) document.addEventListener(ev, activarSonido, true);
-Sonido.play();
-setTimeout(() => { $("avisoSonido").hidden = !Sonido.musica || !Sonido.bloqueado; }, 300);
-
-document.addEventListener("keydown", e => {
-  if ($("quiz").hidden) return;
-  if (e.key === "Escape" || e.key === "p") return pausadoDesde ? continuar() : pausar();
-  if (respondida && (e.key === "Enter" || e.key === " ")) return siguiente();
-  if (respondida || pausadoDesde) return;
-  const n = e.key >= "1" && e.key <= "4" ? +e.key - 1 : "abcd".indexOf(e.key.toLowerCase());
-  if (n >= 0 && n < 4) responder(n);
-});
-
-pintarToggles();
-refrescarMenu();
-</script>
+<script src="js/senales.js"></script>
+<script src="js/preguntas.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/app.js"></script>
 </body>
 </html>
