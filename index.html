@@ -3,175 +3,532 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#1565c0">
+<meta name="theme-color" content="#0E1522">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>Teórico de Manejo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&family=Barlow:wght@400;500;600;700&display=swap">
 <style>
   :root {
-    --bg: #f4f6f9; --card: #ffffff; --text: #1d2433; --muted: #5d6779; --line: #dde2ea;
-    --accent: #1565c0; --accent-ink: #ffffff; --ok: #1e8e3e; --ok-bg: #e6f4ea; --bad: #c62828; --bad-bg: #fdecea;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root { --bg: #11151c; --card: #1a202a; --text: #e8ecf2; --muted: #9aa4b5; --line: #2c3442;
-      --accent: #5aa2f0; --accent-ink: #0b1220; --ok: #5cc27a; --ok-bg: #16301f; --bad: #ef6b6b; --bad-bg: #3a1a1a; }
+    --asfalto: #0E1522; --panel: #19202E; --panel2: #243049; --linea: #33415C; --linea2: #2B3752;
+    --texto: #F2F5FA; --apagado: #9FB0CC; --sombra: #0A0F18; --senal: #F2F5FA;
+    --ambar: #FFC43D; --ambar-ink: #16202F; --ambar-bg: #3A2D12; --ambar-dark: #B8862A;
+    --verde: #35D07F; --verde-bg: #163028; --verde-txt: #6BE3A4;
+    --rojo: #FF5C6C; --rojo-bg: #3A1B21; --rojo-txt: #FF9AA4; --rojo-off: #4A2730;
+    --azul: #4C9EF2; --azul-bg: #15263D; --azul-txt: #9CC7FA;
+    --disp: Bungee, "Arial Black", system-ui, sans-serif;
   }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   html { -webkit-text-size-adjust: 100%; }
-  body { margin: 0; background: var(--bg); color: var(--text); overflow-x: hidden;
-    font: 17px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
-  button { touch-action: manipulation; }
-  main { max-width: 640px; margin: 0 auto;
-    padding: max(20px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(32px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left)); }
-  h1 { font-size: 1.6rem; margin: 0 0 4px; }
-  h2 { font-size: 1.2rem; margin: 0 0 12px; }
-  .sub { color: var(--muted); margin: 0 0 20px; }
-  .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px; margin-bottom: 14px; }
+  body { margin: 0; background: var(--asfalto); color: var(--texto); overflow-x: hidden;
+    font: 17px/1.45 Barlow, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  button { touch-action: manipulation; font: inherit; }
+  main { max-width: 520px; margin: 0 auto; padding-bottom: max(28px, env(safe-area-inset-bottom)); }
+  #menu, #fin { padding: 0 max(16px, env(safe-area-inset-left)) 0 max(16px, env(safe-area-inset-right)); }
+  #quiz { padding: 0 max(16px, env(safe-area-inset-left)) 120px max(16px, env(safe-area-inset-right)); }
+  svg { display: block; }
+  [hidden] { display: none !important; }
+
+  .label { font-size: 11.5px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase; color: var(--apagado); margin: 0; }
+  .card { background: var(--panel); border: 1px solid var(--linea); border-radius: 18px; padding: 16px; margin-bottom: 13px; }
+  .hint { color: var(--apagado); font-size: 12.5px; margin: 10px 0 0; display: flex; align-items: center; gap: 8px; }
+  .sub { color: var(--apagado); margin: 0; }
+
+  /* ---------- Menú ---------- */
+  .hero { margin: 0 -16px; }
+  .hero svg { width: 100%; height: auto; }
+  .titulo { padding-top: 16px; }
+  .kicker { display: inline-flex; align-items: center; gap: 6px; background: var(--panel); border: 1px solid var(--linea);
+    color: var(--ambar); border-radius: 999px; padding: 5px 11px; font-size: 11px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; }
+  h1 { font-family: var(--disp); font-size: 33px; line-height: 1.02; margin: 12px 0 8px; letter-spacing: .5px; font-weight: 400; }
+  h1 span { color: var(--ambar); }
+  .titulo .sub { font-size: 14.5px; }
+
+  .perfil { display: flex; align-items: center; gap: 13px; background: var(--panel); border: 1px solid var(--linea);
+    border-radius: 18px; padding: 14px; margin: 18px 0 0; box-shadow: 0 4px 0 var(--sombra); }
+  .perfil .nivel { width: 50px; height: 50px; flex: none; border-radius: 14px; background: var(--panel2); border: 2px solid var(--ambar);
+    display: flex; align-items: center; justify-content: center; font-family: var(--disp); font-size: 19px; color: var(--ambar); }
+  .perfilTxt { flex: 1 1 auto; min-width: 0; }
+  .perfilTop { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+  .perfilTop b { font-size: 15px; }
+  .perfilTop span { font-size: 12px; color: var(--apagado); font-variant-numeric: tabular-nums; }
+  .xp { height: 9px; border-radius: 5px; background: var(--asfalto); border: 1px solid var(--linea); overflow: hidden; margin-top: 7px; display: flex; }
+  .xp i { display: block; height: 100%; background: var(--ambar); transition: width .5s ease; }
+
   .modes { display: grid; gap: 10px; }
-  .mode { display: flex; justify-content: space-between; align-items: center; gap: 12px; width: 100%; text-align: left;
-    background: var(--card); color: var(--text); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px;
-    font: inherit; cursor: pointer; }
-  .mode { min-height: 68px; }
-  .mode:active:not(:disabled) { transform: scale(.98); }
-  @media (hover: hover) { .mode:hover:not(:disabled) { border-color: var(--accent); } }
-  .mode:disabled { opacity: .5; cursor: default; }
-  .mode b { display: block; }
-  .mode span { color: var(--muted); font-size: .9rem; }
-  .mode .go { color: var(--accent); font-size: 1.3rem; }
-  .row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 16px; color: var(--muted); }
-  .chips button { font: inherit; border: 1px solid var(--line); background: var(--card); color: var(--text);
-    border-radius: 999px; padding: 8px 16px; min-height: 40px; cursor: pointer; }
-  .chips button.on { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
-  .head { position: sticky; top: 0; z-index: 5; background: var(--bg);
-    margin: calc(-1 * max(20px, env(safe-area-inset-top))) -16px 12px; padding: max(12px, env(safe-area-inset-top)) 16px 0; }
-  .top { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 8px; color: var(--muted); font-size: .9rem; }
-  .timer { font-variant-numeric: tabular-nums; font-weight: 600; color: var(--text); }
-  .link { background: none; border: 0; color: var(--accent); font: inherit; cursor: pointer; padding: 8px 0 8px 12px; }
-  .bar { height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; margin-bottom: 12px; }
-  .stage { transition: transform .28s ease, opacity .28s ease; }
+  .mode { display: flex; align-items: center; gap: 13px; width: 100%; text-align: left; cursor: pointer;
+    background: var(--panel); color: var(--texto); border: 1px solid var(--linea); border-left: 4px solid var(--linea);
+    border-radius: 16px; padding: 13px 14px; min-height: 76px; box-shadow: 0 4px 0 var(--sombra); }
+  .mode:active:not(:disabled) { transform: translateY(2px); box-shadow: 0 2px 0 var(--sombra); }
+  .mode:disabled { opacity: .45; cursor: default; }
+  .mode .ico { width: 46px; height: 46px; flex: none; border-radius: 13px; display: flex; align-items: center; justify-content: center; }
+  .mode .modeTxt { flex: 1 1 auto; min-width: 0; }
+  .mode b { display: block; font-size: 16.5px; }
+  .mode .modeTxt > span { display: block; color: var(--apagado); font-size: 13px; }
+  .mode .mini { display: block; height: 6px; border-radius: 3px; background: var(--asfalto); border: 1px solid var(--linea2); overflow: hidden; margin-top: 7px; }
+  .mode .mini i { display: block; height: 100%; }
+  .mode .num { flex: none; color: var(--apagado); font-size: 11.5px; font-variant-numeric: tabular-nums; }
+  .mode .go { flex: none; color: var(--ambar); font-size: 20px; line-height: 1; }
+  .mode .badge { display: inline-block; margin-top: 7px; border-radius: 6px; padding: 2px 7px; font-size: 11px; font-weight: 700; letter-spacing: .6px; }
+  .mode .count { flex: none; min-width: 30px; height: 30px; border-radius: 15px; background: var(--rojo); color: var(--ambar-ink);
+    font-family: var(--disp); font-size: 13px; display: flex; align-items: center; justify-content: center; }
+  .m-senales { border-left-color: var(--azul); } .m-senales .ico { background: var(--azul-bg); color: var(--azul); } .m-senales .mini i { background: var(--azul); }
+  .m-teoria { border-left-color: var(--verde); } .m-teoria .ico { background: var(--verde-bg); color: var(--verde); } .m-teoria .mini i { background: var(--verde); }
+  .m-examen { border-left-color: var(--ambar); } .m-examen .ico { background: var(--ambar-bg); color: var(--ambar); } .m-examen .badge { background: var(--ambar-bg); color: var(--ambar); }
+  .m-errores { border-left-color: var(--rojo); } .m-errores .ico { background: var(--rojo-bg); color: var(--rojo); }
+  @media (hover: hover) { .mode:hover:not(:disabled) { border-color: var(--ambar); } }
+
+  .row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
+  .chipsBox { display: flex; gap: 7px; }
+  .chipsBox button { font-size: 14px; font-weight: 700; min-width: 44px; min-height: 44px; border-radius: 12px;
+    background: var(--panel); border: 1px solid var(--linea); color: var(--apagado); cursor: pointer; }
+  .chipsBox button.on { background: var(--ambar); border-color: var(--ambar); color: var(--ambar-ink); box-shadow: 0 3px 0 var(--sombra); }
+  .toggles { display: flex; gap: 8px; justify-content: flex-start; }
+  .tg { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 14px; border-radius: 999px;
+    background: var(--panel); border: 1px solid var(--linea); color: var(--apagado); font-size: 13.5px; font-weight: 600; cursor: pointer; }
+  .tg[aria-pressed="true"] { color: var(--texto); border-color: var(--azul); }
+  .tg .i { color: var(--azul); display: none; }
+  .tg[aria-pressed="true"] .on, .tg[aria-pressed="false"] .off { display: inline-flex; }
+  .tg[aria-pressed="false"] .i { color: var(--apagado); }
+
+  /* ---------- Partida ---------- */
+  .head { position: sticky; top: 0; z-index: 5; background: var(--asfalto);
+    margin: 0 -16px 12px; padding: max(14px, env(safe-area-inset-top)) 16px 10px; }
+  .hud { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .vidas { display: flex; align-items: center; gap: 4px; }
+  .vidas svg { color: var(--rojo); }
+  .vidas svg.off { color: var(--rojo-off); }
+  .pill { display: inline-flex; align-items: center; gap: 6px; background: var(--panel); border: 1px solid var(--linea);
+    border-radius: 999px; padding: 6px 12px; font-size: 14px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .pill svg { color: var(--apagado); }
+  .pts { display: inline-flex; align-items: center; gap: 5px; font-family: var(--disp); font-size: 16px; color: var(--ambar); font-variant-numeric: tabular-nums; }
+  .combo { display: inline-flex; align-items: center; gap: 5px; background: var(--ambar-bg); color: var(--ambar);
+    border-radius: 7px; padding: 3px 8px; font-family: var(--disp); font-size: 12px; }
+  .icon { width: 44px; height: 44px; flex: none; border-radius: 13px; background: var(--panel); border: 1px solid var(--linea);
+    color: var(--texto); cursor: pointer; display: flex; align-items: center; justify-content: center; }
+  .metaRow { margin-top: 12px; }
+  .segs { display: flex; gap: 3px; margin-top: 7px; }
+  .segs i { flex: 1 1 0; height: 7px; border-radius: 2px; background: var(--linea2); }
+  .segs i.ok { background: var(--verde); } .segs i.bad { background: var(--rojo); } .segs i.now { background: var(--ambar); }
+  .bar { height: 7px; border-radius: 4px; background: var(--linea2); overflow: hidden; margin-top: 7px; }
+  .bar i { display: block; height: 100%; background: var(--ambar); transition: width .2s; }
+
+  .stage { transition: transform .28s ease, opacity .28s ease; padding: 0; overflow: hidden; }
   .stage.out { transform: translateX(-40px); opacity: 0; }
   .stage.pre { transform: translateX(40px); opacity: 0; transition: none; }
-  .auto { height: 4px; border-radius: 2px; background: var(--line); margin-top: 14px; overflow: hidden; }
-  .auto i { display: block; height: 100%; width: 0; background: var(--muted); }
-  .auto.run i { width: 100%; transition: width var(--dur) linear; }
+  .signWrap { position: relative; background: var(--senal); border-bottom: 1px solid var(--linea);
+    display: flex; align-items: center; justify-content: center; padding: 16px; height: clamp(170px, 30vh, 236px); }
+  .signWrap::before { content: ""; position: absolute; left: 0; top: 0; right: 0; height: 7px; background: var(--azul); }
+  .signWrap img { max-width: 100%; max-height: 100%; }
+  .tag { position: absolute; top: 15px; left: 15px; max-width: calc(100% - 30px); background: var(--azul-bg); color: var(--azul-txt);
+    border-radius: 7px; padding: 4px 9px; font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; }
+  .tag.solo { position: static; display: inline-block; background: var(--verde-bg); color: var(--verde-txt); margin: 16px 16px 0; }
+  .q { font-size: 20px; font-weight: 700; line-height: 1.28; margin: 14px 16px 16px; }
+  .opts { display: grid; gap: 9px; padding: 0 16px 16px; }
+  .opt { display: flex; align-items: center; gap: 12px; text-align: left; color: var(--texto); background: var(--panel);
+    border: 1.5px solid var(--linea); border-radius: 14px; padding: 12px 14px; min-height: 58px; cursor: pointer; box-shadow: 0 3px 0 var(--sombra); }
+  .opt:active:not(:disabled) { transform: translateY(2px); box-shadow: 0 1px 0 var(--sombra); }
+  .opt:disabled { cursor: default; }
+  .opt .k { flex: none; width: 27px; height: 27px; border-radius: 9px; background: var(--panel2); color: var(--apagado);
+    font-family: var(--disp); font-size: 12px; display: flex; align-items: center; justify-content: center; }
+  .opt .t { font-size: 16px; font-weight: 500; }
+  .opt.off { opacity: .4; box-shadow: none; }
+  .opt.ok { background: var(--verde-bg); border: 2px solid var(--verde); animation: pop .3s ease; }
+  .opt.ok .k { background: var(--verde); color: var(--asfalto); }
+  .opt.ok .t { font-weight: 700; }
+  .opt.bad { background: var(--rojo-bg); border: 2px solid var(--rojo); animation: shake .3s ease; }
+  .opt.bad .k { background: var(--rojo); color: var(--ambar-ink); }
+  @media (hover: hover) { .opt:hover:not(:disabled) { border-color: var(--ambar); } }
   @keyframes pop { 0% { transform: scale(1); } 40% { transform: scale(1.03); } 100% { transform: scale(1); } }
   @keyframes shake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
-  .opt.ok { animation: pop .3s ease; }
-  .opt.bad { animation: shake .3s ease; }
-  @media (prefers-reduced-motion: reduce) { .stage, .stage.out, .opt.ok, .opt.bad { transition: none; animation: none; transform: none; } }
-  .bar i { display: block; height: 100%; background: var(--accent); transition: width .2s; }
-  .tag { display: inline-block; font-size: .8rem; color: var(--muted); margin-bottom: 6px; }
-  .q { font-size: 1.15rem; font-weight: 600; margin: 0 0 14px; }
-  .sign { display: flex; justify-content: center; align-items: center; background: #fff; border-radius: 10px;
-    padding: 12px; margin-bottom: 14px; height: clamp(140px, 28vh, 210px); }
-  .sign img { max-width: 100%; max-height: 100%; }
-  .opts { display: grid; gap: 10px; }
-  .opt { text-align: left; font: inherit; color: var(--text); background: var(--card); border: 1.5px solid var(--line);
-    border-radius: 12px; padding: 13px 14px; min-height: 54px; cursor: pointer; display: flex; align-items: center; gap: 12px; }
-  .opt:active:not(:disabled) { background: var(--line); }
-  @media (hover: hover) { .opt:hover:not(:disabled) { border-color: var(--accent); } }
-  .opt:disabled { cursor: default; }
-  .opt .k { color: var(--muted); font-weight: 600; min-width: 1em; }
-  .opt.ok { border-color: var(--ok); background: var(--ok-bg); }
-  .opt.bad { border-color: var(--bad); background: var(--bad-bg); }
-  .fb { margin-top: 14px; font-weight: 600; min-height: 1.4em; }
-  .fb.ok { color: var(--ok); } .fb.bad { color: var(--bad); }
-  .btn { font: inherit; font-weight: 600; background: var(--accent); color: var(--accent-ink); border: 0; border-radius: 12px;
-    padding: 13px 18px; min-height: 50px; cursor: pointer; flex: 1 1 auto; }
-  .btn.sec { background: transparent; color: var(--accent); border: 1.5px solid var(--accent); }
-  .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
-  .score { font-size: 2.6rem; font-weight: 700; margin: 4px 0; }
-  .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 8px 0 4px; }
-  .stats div { background: var(--bg); border-radius: 10px; padding: 10px 12px; }
-  .stats b { display: block; font-size: 1.5rem; font-variant-numeric: tabular-nums; }
-  .stats span { color: var(--muted); font-size: .85rem; }
-  .review { list-style: none; padding: 0; margin: 0; }
-  .review li { display: flex; gap: 12px; align-items: center; padding: 10px 0; border-top: 1px solid var(--line); }
-  .review img { width: 56px; height: 56px; object-fit: contain; background: #fff; border-radius: 6px; padding: 3px; flex: none; }
-  .review small { display: block; color: var(--muted); }
-  .review .bad { color: var(--bad); } .review .ok { color: var(--ok); }
-  .hint { color: var(--muted); font-size: .85rem; margin-top: 10px; }
-  .icon { font: inherit; font-size: 1.1rem; line-height: 1; background: var(--card); color: var(--text);
-    border: 1px solid var(--line); border-radius: 10px; width: 42px; height: 42px; cursor: pointer; flex: none; }
-  .toggles { display: flex; gap: 8px; flex-wrap: wrap; }
-  .tg { font: inherit; display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line); background: var(--card);
-    color: var(--muted); border-radius: 999px; padding: 8px 14px; min-height: 40px; cursor: pointer; }
-  .tg[aria-pressed="true"] { color: var(--text); border-color: var(--accent); }
-  .pausa { position: fixed; inset: 0; z-index: 20; display: flex; align-items: center; justify-content: center; padding: 16px;
-    background: color-mix(in srgb, var(--bg) 80%, transparent); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-    animation: fade .2s ease; }
-  .pausa .card { width: 100%; max-width: 360px; text-align: center; margin: 0; }
-  .pausa .reloj { font-size: 2rem; font-weight: 700; font-variant-numeric: tabular-nums; margin: 4px 0 16px; }
-  .pausa .toggles { justify-content: center; margin-bottom: 16px; }
-  .pausa .actions { flex-direction: column; }
+
+  .banda { position: fixed; left: 0; right: 0; bottom: 0; z-index: 10; animation: sube .2s ease;
+    padding: 0 max(16px, env(safe-area-inset-left)) max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-right)); }
+  .banda > .bandaIn { max-width: 520px; margin: 0 auto; border-radius: 18px 18px 0 0; padding: 12px 14px 14px; }
+  .banda.ok > .bandaIn { background: var(--verde-bg); border-top: 2px solid var(--verde); }
+  .banda.bad > .bandaIn { background: var(--rojo-bg); border-top: 2px solid var(--rojo); }
+  .auto { height: 5px; border-radius: 3px; background: var(--asfalto); overflow: hidden; margin-bottom: 12px; }
+  .auto i { display: block; height: 100%; width: 0; }
+  .banda.ok .auto i { background: var(--verde); } .banda.bad .auto i { background: var(--rojo); }
+  .auto.run i { width: 100%; transition: width var(--dur) linear; }
+  .bandaRow { display: flex; align-items: center; gap: 12px; }
+  .bandaIco { width: 42px; height: 42px; flex: none; border-radius: 14px; color: var(--ambar-ink); display: flex; align-items: center; justify-content: center; }
+  .banda.ok .bandaIco { background: var(--verde); } .banda.bad .bandaIco { background: var(--rojo); }
+  .banda .ico-ok, .banda .ico-bad { display: none; }
+  .banda.ok .ico-ok, .banda.bad .ico-bad { display: block; }
+  .bandaTxt { flex: 1 1 auto; min-width: 0; }
+  .bandaTxt b { display: block; font-family: var(--disp); font-size: 18px; letter-spacing: .4px; font-weight: 400; }
+  .banda.ok .bandaTxt b { color: var(--verde-txt); } .banda.bad .bandaTxt b { color: var(--rojo-txt); }
+  .bandaTxt span { display: block; font-size: 13px; color: var(--texto); opacity: .85; }
+  .btnSigue { flex: none; display: inline-flex; align-items: center; gap: 6px; font-family: var(--disp); font-size: 13px;
+    border: 0; border-radius: 13px; padding: 13px 15px; cursor: pointer; box-shadow: 0 3px 0 var(--sombra); }
+  .banda.ok .btnSigue { background: var(--verde); color: var(--asfalto); }
+  .banda.bad .btnSigue { background: var(--texto); color: var(--ambar-ink); }
+  @keyframes sube { from { transform: translateY(100%); } }
+
+  .pausa { position: fixed; inset: 0; z-index: 20; display: flex; align-items: center; justify-content: center; padding: 20px;
+    background: rgba(8, 12, 20, .82); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); animation: fade .2s ease; }
+  .pausa .box { width: 100%; max-width: 360px; background: var(--panel); border: 1px solid var(--linea); border-radius: 24px;
+    padding: 24px 20px; box-shadow: 0 6px 0 var(--sombra); text-align: center; }
+  .pausa h2 { font-family: var(--disp); font-size: 30px; margin: 0 0 4px; letter-spacing: 1px; font-weight: 400; }
+  .pausa .sub { font-size: 14px; margin-bottom: 18px; }
+  .pausa .ico { display: inline-flex; width: 56px; height: 56px; border-radius: 18px; background: var(--panel2);
+    border: 2px solid var(--ambar); color: var(--ambar); align-items: center; justify-content: center; margin-bottom: 14px; }
+  .pausa .toggles { justify-content: center; margin: 18px 0; }
   @keyframes fade { from { opacity: 0; } }
-  [hidden] { display: none !important; }
+
+  .tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 9px; }
+  .tiles div { background: var(--asfalto); border: 1px solid var(--linea2); border-radius: 14px; padding: 11px 6px; }
+  .tiles b { display: block; font-family: var(--disp); font-size: 20px; font-variant-numeric: tabular-nums; font-weight: 400; }
+  .tiles span { font-size: 11px; color: var(--apagado); letter-spacing: .6px; text-transform: uppercase; }
+
+  .btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; font-family: var(--disp); font-size: 15px;
+    background: var(--ambar); color: var(--ambar-ink); border: 0; border-radius: 15px; min-height: 54px; cursor: pointer; box-shadow: 0 4px 0 var(--sombra); }
+  .btn:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--sombra); }
+  .btn.sec { font-family: inherit; font-size: 15px; font-weight: 700; background: transparent; color: var(--texto);
+    border: 1.5px solid var(--linea); box-shadow: none; min-height: 52px; }
+  .btn.err { color: var(--rojo-txt); border-color: var(--rojo); }
+  .btn.ghost { font-family: inherit; font-size: 14.5px; font-weight: 600; background: none; border: 0; color: var(--apagado);
+    box-shadow: none; min-height: 48px; }
+  .actions { display: grid; gap: 10px; margin-top: 16px; }
+
+  /* ---------- Resultado ---------- */
+  .rank { margin: 0 -16px 14px; padding: 22px 20px 20px; text-align: center; background: var(--verde-bg); border-bottom: 2px solid var(--verde); }
+  .rank.bad { background: var(--rojo-bg); border-bottom-color: var(--rojo); }
+  .rankBadge { display: inline-block; background: var(--verde); color: var(--asfalto); font-family: var(--disp); font-size: 13px;
+    letter-spacing: 1.4px; border-radius: 999px; padding: 6px 14px; }
+  .rank.bad .rankBadge { background: var(--rojo); color: var(--ambar-ink); }
+  .rank svg.carnet { width: 156px; height: auto; margin: 14px auto 10px; }
+  .rkFill { fill: var(--verde); } .rank.bad .rkFill { fill: var(--rojo); }
+  .stars { display: flex; justify-content: center; gap: 7px; margin-bottom: 8px; }
+  .stars svg { color: var(--ambar); }
+  .stars svg.off { color: #6A7893; }
+  .score { font-family: var(--disp); font-size: 46px; line-height: 1; font-variant-numeric: tabular-nums; }
+  .score .d { font-size: 28px; color: var(--verde-txt); }
+  .rank.bad .score .d { color: var(--rojo-txt); }
+  .rank .sub { margin-top: 8px; font-size: 14.5px; color: var(--texto); opacity: .85; }
+  .xp2 { height: 11px; border-radius: 6px; }
+  .xp2 .prev { background: var(--ambar-dark); }
+  .stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-bottom: 13px; }
+  .stats div { background: var(--panel); border: 1px solid var(--linea); border-radius: 16px; padding: 12px 13px; }
+  .stats b { display: block; font-family: var(--disp); font-size: 21px; font-variant-numeric: tabular-nums; font-weight: 400; }
+  .stats span { font-size: 11.5px; color: var(--apagado); letter-spacing: .6px; text-transform: uppercase; }
+  .review { list-style: none; padding: 0; margin: 0; }
+  .review li { display: flex; gap: 12px; align-items: center; padding: 9px 0; border-top: 1px solid var(--linea2); }
+  .review img { width: 50px; height: 50px; object-fit: contain; background: var(--senal); border-radius: 10px; padding: 3px; flex: none; }
+  .review small { display: block; color: var(--apagado); font-size: 13px; }
+  .review .ok { font-size: 14px; font-weight: 700; color: var(--verde-txt); }
+  .review .bad { display: block; font-size: 12.5px; color: var(--rojo-txt); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .stage, .stage.out, .opt.ok, .opt.bad, .banda, .pausa, .xp i { transition: none; animation: none; transform: none; }
+  }
 </style>
 </head>
 <body>
 <main>
   <section id="menu">
-    <h1>Teórico de Manejo</h1>
-    <p class="sub">Practicá para el examen teórico de la licencia de conducir.</p>
-    <p class="hint" id="avisoSonido" hidden>🔈 Tocá la pantalla para activar la música</p>
+    <div class="hero">
+      <svg viewBox="0 0 390 300" role="img" aria-label="Ilustración nocturna: un auto circulando por una ruta, un semáforo en verde y una señal de pare">
+        <rect width="390" height="300" fill="#121C30"></rect>
+        <circle cx="34" cy="36" r="1.6" fill="#8FA6CC"></circle>
+        <circle cx="78" cy="22" r="1.2" fill="#8FA6CC"></circle>
+        <circle cx="120" cy="52" r="1.8" fill="#A9BCDC"></circle>
+        <circle cx="168" cy="26" r="1.2" fill="#8FA6CC"></circle>
+        <circle cx="214" cy="60" r="1.5" fill="#8FA6CC"></circle>
+        <circle cx="256" cy="30" r="1.2" fill="#A9BCDC"></circle>
+        <circle cx="300" cy="72" r="1.2" fill="#8FA6CC"></circle>
+        <circle cx="356" cy="88" r="1.5" fill="#8FA6CC"></circle>
+        <circle cx="330" cy="44" r="21" fill="#E8EDF7"></circle>
+        <circle cx="341" cy="36" r="19" fill="#121C30"></circle>
+        <rect x="0" y="112" width="30" height="44" fill="#1A2740"></rect>
+        <rect x="34" y="96" width="22" height="60" fill="#213052"></rect>
+        <rect x="60" y="120" width="26" height="36" fill="#1A2740"></rect>
+        <rect x="300" y="104" width="24" height="52" fill="#1A2740"></rect>
+        <rect x="328" y="118" width="34" height="38" fill="#213052"></rect>
+        <rect x="366" y="100" width="24" height="56" fill="#1A2740"></rect>
+        <rect x="40" y="104" width="4" height="4" fill="#FFC43D"></rect>
+        <rect x="48" y="116" width="4" height="4" fill="#FFC43D"></rect>
+        <rect x="334" y="126" width="4" height="4" fill="#FFC43D"></rect>
+        <rect x="372" y="110" width="4" height="4" fill="#FFC43D"></rect>
+        <rect x="0" y="152" width="390" height="4" fill="#2E3C5C"></rect>
+        <path d="M152 156 L238 156 L390 300 L0 300 Z" fill="#2A3246"></path>
+        <path d="M152 156 L158 156 L24 300 L0 300 Z" fill="#E8EDF7" opacity=".45"></path>
+        <path d="M232 156 L238 156 L390 300 L366 300 Z" fill="#E8EDF7" opacity=".45"></path>
+        <path d="M192 158 L198 158 L199 170 L191 170 Z" fill="#FFC43D" opacity=".75"></path>
+        <path d="M190 180 L200 180 L202 198 L188 198 Z" fill="#FFC43D" opacity=".8"></path>
+        <path d="M186 210 L204 210 L208 236 L182 236 Z" fill="#FFC43D" opacity=".9"></path>
+        <path d="M180 250 L210 250 L215 286 L175 286 Z" fill="#FFC43D"></path>
+        <rect x="300" y="150" width="6" height="104" fill="#1A2335"></rect>
+        <circle cx="303" cy="148" r="16" fill="#35D07F" opacity=".16"></circle>
+        <rect x="286" y="92" width="34" height="70" rx="10" fill="#19202E" stroke="#33415C" stroke-width="2"></rect>
+        <circle cx="303" cy="110" r="7" fill="#3C2230"></circle>
+        <circle cx="303" cy="127" r="7" fill="#463718"></circle>
+        <circle cx="303" cy="144" r="7" fill="#35D07F"></circle>
+        <rect x="66" y="196" width="5" height="58" fill="#1A2335"></rect>
+        <polygon points="52,170 83,170 97,184 97,206 83,220 52,220 38,206 38,184" fill="#E03A4E" stroke="#F2F5FA" stroke-width="3"></polygon>
+        <text x="67.5" y="201" text-anchor="middle" font-family="Bungee, Arial Black, sans-serif" font-size="13" fill="#FFFFFF">PARE</text>
+        <ellipse cx="195" cy="294" rx="88" ry="11" fill="#0A0F18" opacity=".55"></ellipse>
+        <rect x="126" y="256" width="12" height="30" rx="6" fill="#121824"></rect>
+        <rect x="252" y="256" width="12" height="30" rx="6" fill="#121824"></rect>
+        <rect x="132" y="226" width="126" height="64" rx="18" fill="#FFC43D"></rect>
+        <rect x="152" y="234" width="86" height="28" rx="9" fill="#16202F"></rect>
+        <rect x="160" y="240" width="70" height="8" rx="4" fill="#2E3C5C"></rect>
+        <rect x="140" y="270" width="28" height="11" rx="5.5" fill="#FF5C6C"></rect>
+        <rect x="222" y="270" width="28" height="11" rx="5.5" fill="#FF5C6C"></rect>
+        <rect x="186" y="272" width="18" height="7" rx="3.5" fill="#16202F"></rect>
+      </svg>
+    </div>
+
+    <div class="titulo">
+      <span class="kicker">
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"></path></svg>
+        Examen teórico
+      </span>
+      <h1>TEÓRICO<br><span>DE MANEJO</span></h1>
+      <p class="sub">Practicá para el examen teórico de la licencia de conducir.</p>
+      <p class="hint" id="avisoSonido" hidden>
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5h3.5L13 5v14l-5.5-4.5H4z"></path><path d="M17 9.5a4 4 0 0 1 0 5"></path></svg>
+        Tocá la pantalla para activar la música
+      </p>
+    </div>
+
+    <div class="perfil">
+      <div class="nivel" id="nivelNum">1</div>
+      <div class="perfilTxt">
+        <div class="perfilTop"><b id="nivelNombre">Peatón atento</b><span id="xpTxt">0 / 500 XP</span></div>
+        <div class="xp"><i id="xpBar" style="width: 0"></i></div>
+      </div>
+    </div>
+
+    <h2 class="label" style="margin: 22px 0 10px">Elegí tu modo</h2>
+
     <div class="modes">
-      <button class="mode" data-mode="senales"><div><b>Señales de tránsito</b><span>¿Qué significa esta señal?</span></div><div class="go">›</div></button>
-      <button class="mode" data-mode="teoria"><div><b>Teoría</b><span>Velocidades, prioridades, adelantamiento, estacionamiento…</span></div><div class="go">›</div></button>
-      <button class="mode" data-mode="mixto"><div><b>Examen simulado</b><span>Mitad señales, mitad teoría</span></div><div class="go">›</div></button>
-      <button class="mode" data-mode="errores" id="btnErrores"><div><b>Repasar mis errores</b><span id="nErrores"></span></div><div class="go">›</div></button>
+      <button class="mode m-senales" data-mode="senales">
+        <span class="ico">
+          <svg viewBox="0 0 24 24" width="25" height="25" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5 21.5 19H2.5z"></path><path d="M12 9.5v4"></path><path d="M12 16.4h.01"></path></svg>
+        </span>
+        <span class="modeTxt">
+          <b>Señales de tránsito</b>
+          <span>¿Qué significa esta señal?</span>
+          <span class="mini"><i id="progSenales" style="width: 0"></i></span>
+        </span>
+        <span class="num" id="nSenales"></span>
+      </button>
+
+      <button class="mode m-teoria" data-mode="teoria">
+        <span class="ico">
+          <svg viewBox="0 0 24 24" width="25" height="25" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H19v16H5.5A1.5 1.5 0 0 1 4 18.5z"></path><path d="M8 8.5h7"></path><path d="M8 12h7"></path></svg>
+        </span>
+        <span class="modeTxt">
+          <b>Teoría</b>
+          <span>Velocidades, prioridad, adelantamiento…</span>
+          <span class="mini"><i id="progTeoria" style="width: 0"></i></span>
+        </span>
+        <span class="num" id="nTeoria"></span>
+      </button>
+
+      <button class="mode m-examen" data-mode="mixto">
+        <span class="ico">
+          <svg viewBox="0 0 24 24" width="25" height="25" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"></circle><path d="M12 13V9"></path><path d="M9 2.5h6"></path></svg>
+        </span>
+        <span class="modeTxt">
+          <b>Examen simulado</b>
+          <span>Mitad señales, mitad teoría · 3 vidas</span>
+          <span class="badge" id="mejorExamen"></span>
+        </span>
+        <span class="go">›</span>
+      </button>
+
+      <button class="mode m-errores" data-mode="errores" id="btnErrores">
+        <span class="ico">
+          <svg viewBox="0 0 24 24" width="25" height="25" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11.5A8 8 0 1 1 17.3 6"></path><path d="M20.5 3v4.5H16"></path><path d="M12 8.5v4"></path><path d="M12 16h.01"></path></svg>
+        </span>
+        <span class="modeTxt">
+          <b>Repasar mis errores</b>
+          <span id="nErrores"></span>
+        </span>
+        <span class="count" id="cErrores">0</span>
+      </button>
     </div>
-    <div class="row chips" id="cant">Preguntas:
-      <button data-n="10">10</button><button data-n="20" class="on">20</button><button data-n="40">40</button><button data-n="0">Todas</button>
+
+    <div class="row" id="cant">
+      <span class="label">Preguntas</span>
+      <span class="chipsBox">
+        <button data-n="10">10</button><button data-n="20" class="on">20</button><button data-n="40">40</button><button data-n="0" style="min-width: 58px; font-size: 13px">Todas</button>
+      </span>
     </div>
+
     <div class="row toggles">
-      <button class="tg" data-tg="musica"></button><button class="tg" data-tg="efectos"></button>
+      <button class="tg" data-tg="musica" aria-pressed="true">
+        <span class="i on"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7" cy="18" r="3"></circle><circle cx="18" cy="15.5" r="3"></circle><path d="M10 18V5.5l11-2v12"></path></svg></span>
+        <span class="i off"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7" cy="18" r="3"></circle><path d="M10 18V5.5l11-2v6"></path><path d="M4 4l16 16"></path></svg></span>
+        <span>Música</span>
+      </button>
+      <button class="tg" data-tg="efectos" aria-pressed="true">
+        <span class="i on"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5h3.5L13 5v14l-5.5-4.5H4z"></path><path d="M17 9.5a4 4 0 0 1 0 5"></path></svg></span>
+        <span class="i off"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5h3.5L13 5v14l-5.5-4.5H4z"></path><path d="M17 10l4 4"></path><path d="M21 10l-4 4"></path></svg></span>
+        <span>Sonidos</span>
+      </button>
     </div>
   </section>
 
   <section id="quiz" hidden>
     <div class="head">
-      <div class="top"><span id="prog"></span><span class="timer" id="reloj">⏱ 0:00</span><span id="pts"></span><button class="icon" id="btnPausa" aria-label="Pausa">⏸</button></div>
-      <div class="bar"><i id="barra"></i></div>
+      <div class="hud">
+        <span class="vidas" id="vidas" hidden></span>
+        <span class="pill" id="reloj">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12.5" r="8"></circle><path d="M12 8.5v4.5l3 1.8"></path></svg>
+          <span id="relojTxt">0:00</span>
+        </span>
+        <span class="pts">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"></path></svg>
+          <span id="pts">0</span>
+        </span>
+        <span class="combo" id="combo" hidden>
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"></path></svg>
+          <span id="comboTxt">x2</span>
+        </span>
+        <button class="icon" id="btnPausa" aria-label="Pausa">
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true"><rect x="7" y="5" width="4" height="14" rx="1.4"></rect><rect x="13" y="5" width="4" height="14" rx="1.4"></rect></svg>
+        </button>
+      </div>
+      <div class="metaRow"><span class="label" id="prog"></span></div>
+      <div class="segs" id="segs"></div>
+      <div class="bar" id="barWrap" hidden><i id="barra"></i></div>
     </div>
+
     <div class="card stage" id="stage">
-      <span class="tag" id="tag"></span>
-      <div class="sign" id="sign" hidden><img id="img" alt="Señal de tránsito"></div>
+      <div class="signWrap" id="sign" hidden>
+        <span class="tag" id="tagSign"></span>
+        <img id="img" alt="Señal de tránsito">
+      </div>
+      <span class="tag solo" id="tag" hidden></span>
       <p class="q" id="preg"></p>
       <div class="opts" id="opts"></div>
-      <div class="fb" id="fb"></div>
-      <div class="auto" id="auto"><i></i></div>
     </div>
-    <div class="pausa" id="pausa" hidden>
-      <div class="card">
-        <h2>Pausa</h2>
-        <div class="reloj" id="relojPausa"></div>
-        <div class="toggles"><button class="tg" data-tg="musica"></button><button class="tg" data-tg="efectos"></button></div>
-        <div class="actions">
-          <button class="btn" id="continuar">▶ Continuar</button>
-          <button class="btn sec" id="salir">Salir al menú</button>
+
+    <div class="banda" id="banda" hidden>
+      <div class="bandaIn">
+        <div class="auto" id="auto"><i></i></div>
+        <div class="bandaRow">
+          <span class="bandaIco">
+            <svg class="ico-ok" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5 10 17.5 19.5 7"></path></svg>
+            <svg class="ico-bad" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12"></path><path d="M18 6 6 18"></path></svg>
+          </span>
+          <span class="bandaTxt"><b id="bandaTitulo"></b><span id="bandaDet"></span></span>
+          <button class="btnSigue" id="btnSigue">
+            SIGUE
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13"></path><path d="M12.5 5.5 19 12l-6.5 6.5"></path></svg>
+          </button>
         </div>
+      </div>
+    </div>
+
+    <div class="pausa" id="pausa" hidden>
+      <div class="box">
+        <span class="ico">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><rect x="7" y="5" width="4" height="14" rx="1.4"></rect><rect x="13" y="5" width="4" height="14" rx="1.4"></rect></svg>
+        </span>
+        <h2>PAUSA</h2>
+        <p class="sub" id="pausaSub"></p>
+        <div class="tiles">
+          <div><b style="color: var(--verde)" id="pAciertos">0</b><span>Aciertos</span></div>
+          <div><b style="color: var(--rojo)" id="pErrores">0</b><span>Errores</span></div>
+          <div><b style="color: var(--ambar)" id="pTiempo">0:00</b><span>Tiempo</span></div>
+        </div>
+        <div class="toggles">
+          <button class="tg" data-tg="musica" aria-pressed="true">
+            <span class="i on"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7" cy="18" r="3"></circle><circle cx="18" cy="15.5" r="3"></circle><path d="M10 18V5.5l11-2v12"></path></svg></span>
+            <span class="i off"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7" cy="18" r="3"></circle><path d="M10 18V5.5l11-2v6"></path><path d="M4 4l16 16"></path></svg></span>
+            <span>Música</span>
+          </button>
+          <button class="tg" data-tg="efectos" aria-pressed="true">
+            <span class="i on"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5h3.5L13 5v14l-5.5-4.5H4z"></path><path d="M17 9.5a4 4 0 0 1 0 5"></path></svg></span>
+            <span class="i off"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5h3.5L13 5v14l-5.5-4.5H4z"></path><path d="M17 10l4 4"></path><path d="M21 10l-4 4"></path></svg></span>
+            <span>Sonidos</span>
+          </button>
+        </div>
+        <div class="actions">
+          <button class="btn" id="continuar">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 5.5 19 12 8 18.5z"></path></svg>
+            CONTINUAR
+          </button>
+          <button class="btn sec" id="reiniciar">
+            <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11.5A8 8 0 1 1 17.3 6"></path><path d="M20.5 3v4.5H16"></path></svg>
+            Reiniciar la partida
+          </button>
+          <button class="btn ghost" id="salir">
+            <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 19H5.5A1.5 1.5 0 0 1 4 17.5v-11A1.5 1.5 0 0 1 5.5 5H11"></path><path d="M15 8.5 18.5 12 15 15.5"></path><path d="M18.5 12H9"></path></svg>
+            Salir al menú
+          </button>
+        </div>
+        <p class="hint" style="justify-content: center">Si minimizás la app, el juego se pausa solo.</p>
       </div>
     </div>
   </section>
 
   <section id="fin" hidden>
-    <div class="card">
-      <h2>Resultado</h2>
+    <div class="rank" id="rank">
+      <span class="rankBadge" id="rankBadge">APROBADO</span>
+      <svg class="carnet" viewBox="0 0 170 104" role="img" aria-label="Ilustración: carnet de conducir con el sello del resultado">
+        <rect x="6" y="10" width="158" height="88" rx="12" fill="#F2F5FA" stroke="#0E1522" stroke-width="2"></rect>
+        <rect class="rkFill" x="6" y="10" width="158" height="18" rx="12"></rect>
+        <rect class="rkFill" x="6" y="22" width="158" height="6"></rect>
+        <rect x="18" y="38" width="42" height="48" rx="6" fill="#CBD6E6"></rect>
+        <circle cx="39" cy="54" r="9" fill="#8FA6CC"></circle>
+        <path d="M24 86c0-8 6.7-14 15-14s15 6 15 14z" fill="#8FA6CC"></path>
+        <rect x="70" y="40" width="78" height="7" rx="3.5" fill="#1D2433"></rect>
+        <rect x="70" y="54" width="60" height="6" rx="3" fill="#8FA6CC"></rect>
+        <rect x="70" y="66" width="70" height="6" rx="3" fill="#8FA6CC"></rect>
+        <rect x="70" y="78" width="44" height="6" rx="3" fill="#8FA6CC"></rect>
+        <circle class="rkFill" cx="146" cy="86" r="17" stroke="#F2F5FA" stroke-width="3"></circle>
+        <path id="rankSello" d="M138 86.5 144 92.5 155 80.5" fill="none" stroke="#0E1522" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+      <div class="stars" id="stars" role="img" aria-label="Estrellas de la partida"></div>
       <div class="score" id="score"></div>
-      <div class="sub" id="pct"></div>
-      <div class="stats">
-        <div><b id="tTotal"></b><span>Tiempo total</span></div>
-        <div><b id="tProm"></b><span>Promedio por pregunta</span></div>
-      </div>
-      <div class="actions">
-        <button class="btn" id="otraVez">Jugar de nuevo</button>
-        <button class="btn sec" id="repErr">Repasar los que fallé</button>
-        <button class="btn sec" id="menuBtn">Menú</button>
-      </div>
+      <p class="sub" id="pct"></p>
     </div>
-    <div class="card" id="revCard"><h2>Para repasar</h2><ul class="review" id="rev"></ul></div>
+
+    <div class="card">
+      <div class="perfilTop">
+        <b id="xpGanado" style="display: inline-flex; align-items: center; gap: 7px"></b>
+        <span id="xpNivelTxt"></span>
+      </div>
+      <div class="xp xp2" style="margin-top: 9px"><i class="prev" id="xpBarPrev" style="width: 0"></i><i id="xpBarNew" style="width: 0"></i></div>
+      <p class="hint" id="xpFalta"></p>
+    </div>
+
+    <div class="stats">
+      <div><b id="tTotal"></b><span>Tiempo total</span></div>
+      <div><b id="tProm"></b><span>Por pregunta</span></div>
+      <div><b id="sCombo" style="color: var(--ambar)"></b><span>Combo máximo</span></div>
+      <div><b id="sRacha" style="color: var(--verde)"></b><span>Racha más larga</span></div>
+    </div>
+
+    <div class="card" id="revCard">
+      <h2 class="label" id="revTitulo">Para repasar</h2>
+      <ul class="review" id="rev"></ul>
+    </div>
+
+    <div class="actions">
+      <button class="btn" id="otraVez">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 5.5 19 12 8 18.5z"></path></svg>
+        JUGAR DE NUEVO
+      </button>
+      <button class="btn sec err" id="repErr">
+        <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11.5A8 8 0 1 1 17.3 6"></path><path d="M20.5 3v4.5H16"></path></svg>
+        <span id="repErrTxt">Repasar los que fallé</span>
+      </button>
+      <button class="btn ghost" id="menuBtn">
+        <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11.5 12 5l8 6.5"></path><path d="M6.5 11v8h11v-8"></path></svg>
+        Volver al menú
+      </button>
+    </div>
   </section>
 </main>
 
@@ -181,10 +538,11 @@
 <script>
 const $ = id => document.getElementById(id);
 const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.random() * (i + 1) | 0; [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const SVG = "http://www.w3.org/2000/svg";
 
 // Cada pregunta tiene un id estable para poder guardar los errores
-const bancoSenales = SENALES.map(s => ({ id: "s:" + s.img, tipo: "senal", tag: "Señal · " + s.cat, s }));
-const bancoTeoria = PREGUNTAS.map((p, i) => ({ id: "t:" + p.q, tipo: "teoria", tag: p.tema, p }));
+const bancoSenales = SENALES.map(s => ({ id: "s:" + s.img, tipo: "senal", tag: s.cat, s }));
+const bancoTeoria = PREGUNTAS.map(p => ({ id: "t:" + p.q, tipo: "teoria", tag: p.tema, p }));
 const porId = new Map([...bancoSenales, ...bancoTeoria].map(x => [x.id, x]));
 
 function opcionesSenal(s) {
@@ -199,11 +557,27 @@ function armar(item) {
   return { q: item.p.q, correcta: item.p.o[0], o: shuffle(item.p.o) };
 }
 
-// Errores guardados en el navegador (si el almacenamiento falla, se juega igual)
-const KEY = "teorico-errores";
+// Lo que se guarda en el navegador: errores, XP, preguntas dominadas y mejor examen
+const KEY = "teorico-errores", PERFIL = "teorico-perfil";
 let errores = new Set();
 try { errores = new Set(JSON.parse(localStorage.getItem(KEY) || "[]")); } catch {}
 const guardar = () => { try { localStorage.setItem(KEY, JSON.stringify([...errores])); } catch {} };
+
+let perfil = { xp: 0, mejor: 0, mejorTotal: 0 };
+let dominadas = new Set();
+try {
+  const p = JSON.parse(localStorage.getItem(PERFIL) || "{}");
+  perfil.xp = p.xp || 0; perfil.mejor = p.mejor || 0; perfil.mejorTotal = p.mejorTotal || 0;
+  dominadas = new Set(p.dominadas || []);
+} catch {}
+const guardarPerfil = () => {
+  try { localStorage.setItem(PERFIL, JSON.stringify({ ...perfil, dominadas: [...dominadas] })); } catch {}
+};
+
+const NIVELES = ["Peatón atento", "Aprendiz al volante", "Conductor prudente", "Baqueano del asfalto", "Maestro del tránsito"];
+const XP_NIVEL = 500;
+const nivel = xp => Math.floor(xp / XP_NIVEL) + 1;
+const nombreNivel = xp => NIVELES[Math.min(nivel(xp) - 1, NIVELES.length - 1)];
 
 let cantidad = 20;
 document.querySelectorAll("#cant button").forEach(b => b.onclick = () => {
@@ -212,12 +586,37 @@ document.querySelectorAll("#cant button").forEach(b => b.onclick = () => {
 });
 
 let ronda = [], idx = 0, aciertos = 0, falladas = [], respondida = false, ultimoModo = "senales";
+let puntos = 0, combo = 0, comboMax = 0, racha = 0, rachaMax = 0, vidas = 0, conVidas = false;
 let inicio = 0, reloj = null, espera = null, pausadoDesde = 0;
-const PAUSA_BIEN = 900, PAUSA_MAL = 2200, ANIM = 280;
+const PAUSA_BIEN = 900, PAUSA_MAL = 2200, ANIM = 280, VIDAS = 3, BASE = 50;
 
 const fmt = ms => { const s = Math.floor(ms / 1000); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`; };
-const tick = () => { $("reloj").textContent = "⏱ " + fmt(Date.now() - inicio); };
-function parar() { clearInterval(reloj); clearTimeout(espera); reloj = espera = null; pausadoDesde = 0; $("pausa").hidden = true; }
+const tick = () => { $("relojTxt").textContent = fmt(Date.now() - inicio); };
+function parar() { clearInterval(reloj); clearTimeout(espera); reloj = espera = null; pausadoDesde = 0; $("pausa").hidden = true; $("banda").hidden = true; }
+
+const iconoVida = apagada => {
+  const svg = document.createElementNS(SVG, "svg");
+  svg.setAttribute("viewBox", "0 0 24 24"); svg.setAttribute("width", "20"); svg.setAttribute("height", "20");
+  svg.setAttribute("fill", "currentColor"); svg.setAttribute("aria-hidden", "true");
+  if (apagada) svg.setAttribute("class", "off");
+  const p = document.createElementNS(SVG, "path");
+  p.setAttribute("d", "M5 11.2 6.7 6.9A2.2 2.2 0 0 1 8.7 5.5h6.6a2.2 2.2 0 0 1 2 1.4l1.7 4.3v5.3a1 1 0 0 1-1 1h-1.3a1 1 0 0 1-1-1V16H8.3v.5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1z");
+  svg.appendChild(p);
+  return svg;
+};
+function pintarVidas() {
+  const box = $("vidas");
+  box.hidden = !conVidas;
+  if (!conVidas) return;
+  box.innerHTML = "";
+  box.setAttribute("aria-label", `${vidas} vidas de ${VIDAS}`);
+  for (let i = 0; i < VIDAS; i++) box.appendChild(iconoVida(i >= vidas));
+}
+
+function pintarCombo() {
+  $("combo").hidden = combo < 2;
+  $("comboTxt").textContent = "x" + combo;
+}
 
 // Pausa: congela el reloj, el avance automático y la música
 function pausar() {
@@ -226,7 +625,10 @@ function pausar() {
   clearInterval(reloj); clearTimeout(espera); reloj = espera = null;
   $("stage").classList.remove("out");
   $("auto").classList.remove("run");
-  $("relojPausa").textContent = "⏱ " + fmt(pausadoDesde - inicio);
+  $("pausaSub").textContent = `Pregunta ${idx + 1} de ${ronda.length} · el reloj está detenido`;
+  $("pAciertos").textContent = aciertos;
+  $("pErrores").textContent = falladas.length;
+  $("pTiempo").textContent = fmt(pausadoDesde - inicio);
   $("pausa").hidden = false;
   Sonido.stop();
 }
@@ -241,11 +643,7 @@ function continuar() {
 }
 
 function pintarToggles() {
-  document.querySelectorAll("[data-tg]").forEach(b => {
-    const on = Sonido[b.dataset.tg];
-    b.setAttribute("aria-pressed", on);
-    b.textContent = b.dataset.tg === "musica" ? (on ? "🎵 Música: sí" : "🎵 Música: no") : (on ? "🔊 Sonidos: sí" : "🔇 Sonidos: no");
-  });
+  document.querySelectorAll("[data-tg]").forEach(b => b.setAttribute("aria-pressed", Sonido[b.dataset.tg]));
 }
 document.querySelectorAll("[data-tg]").forEach(b => b.onclick = () => {
   if (b.dataset.tg === "musica") {
@@ -261,7 +659,23 @@ function pantalla(id) { for (const s of ["menu", "quiz", "fin"]) $(s).hidden = s
 function refrescarMenu() {
   const n = [...errores].filter(id => porId.has(id)).length;
   $("nErrores").textContent = n ? `${n} pregunta${n > 1 ? "s" : ""} para repasar` : "Todavía no tenés errores guardados";
+  $("cErrores").textContent = n;
+  $("cErrores").hidden = !n;
   $("btnErrores").disabled = !n;
+
+  const ds = bancoSenales.filter(x => dominadas.has(x.id)).length;
+  const dt = bancoTeoria.filter(x => dominadas.has(x.id)).length;
+  $("nSenales").textContent = `${ds}/${bancoSenales.length}`;
+  $("progSenales").style.width = (ds / bancoSenales.length * 100) + "%";
+  $("nTeoria").textContent = `${dt}/${bancoTeoria.length}`;
+  $("progTeoria").style.width = (dt / bancoTeoria.length * 100) + "%";
+  $("mejorExamen").textContent = perfil.mejorTotal ? `MEJOR: ${perfil.mejor}/${perfil.mejorTotal}` : "TODAVÍA SIN JUGAR";
+
+  $("nivelNum").textContent = nivel(perfil.xp);
+  $("nivelNombre").textContent = nombreNivel(perfil.xp);
+  const dentro = perfil.xp % XP_NIVEL;
+  $("xpTxt").textContent = `${dentro} / ${XP_NIVEL} XP`;
+  $("xpBar").style.width = (dentro / XP_NIVEL * 100) + "%";
 }
 
 function empezar(modo, lista) {
@@ -277,25 +691,50 @@ function empezar(modo, lista) {
     items = shuffle([...tomar(bancoTeoria, t), ...tomar(bancoSenales, n - t)]);
   } else items = shuffle([...errores].map(id => porId.get(id)).filter(Boolean)).slice(0, cantidad || undefined);
   if (!items.length) return;
+
   ronda = items.map(it => ({ it, ...armar(it) }));
   idx = 0; aciertos = 0; falladas = [];
+  puntos = 0; combo = 0; comboMax = 0; racha = 0; rachaMax = 0;
+  conVidas = modo === "mixto"; vidas = VIDAS;
   parar();
+  $("stage").className = "card stage";
+  pintarVidas(); pintarCombo();
+
+  // Con rondas largas una casilla por pregunta no se vería: ahí va una barra común
+  const cortas = ronda.length <= 30;
+  $("segs").hidden = !cortas;
+  $("barWrap").hidden = cortas;
+  if (cortas) {
+    $("segs").innerHTML = "";
+    for (let i = 0; i < ronda.length; i++) $("segs").appendChild(document.createElement("i"));
+  }
+
   pantalla("quiz"); mostrar();
   inicio = Date.now(); tick(); reloj = setInterval(tick, 500);
   Sonido.play();
 }
 
+function pintarAvance() {
+  if ($("segs").hidden) $("barra").style.width = (idx / ronda.length * 100) + "%";
+  else {
+    const casillas = $("segs").children;
+    for (const c of casillas) if (c.className === "now") c.className = "";
+    if (casillas[idx]) casillas[idx].className = "now";
+  }
+}
+
 function mostrar() {
   const r = ronda[idx];
   respondida = false;
-  $("prog").textContent = `Pregunta ${idx + 1} de ${ronda.length}`;
-  $("pts").textContent = `✔ ${aciertos}`;
-  $("barra").style.width = (idx / ronda.length * 100) + "%";
-  $("tag").textContent = r.it.tag;
+  $("prog").textContent = `Pregunta ${idx + 1} / ${ronda.length}`;
+  $("pts").textContent = puntos;
+  pintarAvance();
   $("sign").hidden = !r.img;
-  if (r.img) $("img").src = r.img;
+  $("tag").hidden = !!r.img;
+  if (r.img) { $("img").src = r.img; $("tagSign").textContent = r.it.tag; }
+  else $("tag").textContent = r.it.tag;
   $("preg").textContent = r.q;
-  $("fb").textContent = ""; $("fb").className = "fb";
+  $("banda").hidden = true;
   $("auto").classList.remove("run");
   const prox = ronda[idx + 1];
   if (prox && prox.img) new Image().src = prox.img;
@@ -303,7 +742,8 @@ function mostrar() {
   r.o.forEach((txt, i) => {
     const b = document.createElement("button");
     b.className = "opt";
-    b.innerHTML = `<span class="k">${i + 1}</span><span></span>`;
+    b.innerHTML = '<span class="k"></span><span class="t"></span>';
+    b.firstChild.textContent = "ABCD"[i];
     b.lastChild.textContent = txt;
     b.onclick = () => responder(i);
     box.appendChild(b);
@@ -315,17 +755,43 @@ function responder(i) {
   respondida = true;
   const r = ronda[idx], botones = [...$("opts").children];
   const bien = r.o[i] === r.correcta;
-  botones.forEach((b, j) => { b.disabled = true; if (r.o[j] === r.correcta) b.classList.add("ok"); });
+  const casilla = $("segs").hidden ? null : $("segs").children[idx];
+
+  botones.forEach((b, j) => {
+    b.disabled = true;
+    if (r.o[j] === r.correcta) b.classList.add("ok");
+    else if (j !== i) b.classList.add("off");
+  });
+
   if (bien) {
-    aciertos++; errores.delete(r.it.id); Sonido.bien();
-    $("fb").textContent = "¡Correcto!"; $("fb").className = "fb ok";
+    aciertos++; combo++; racha++;
+    comboMax = Math.max(comboMax, combo); rachaMax = Math.max(rachaMax, racha);
+    const gana = BASE + Math.min(combo - 1, 5) * 10;
+    puntos += gana;
+    errores.delete(r.it.id); dominadas.add(r.it.id);
+    Sonido.bien();
+    if (casilla) casilla.className = "ok";
+    $("banda").className = "banda ok";
+    $("bandaTitulo").textContent = "¡CORRECTO!";
+    $("bandaDet").textContent = `+${gana} puntos` + (combo > 1 ? ` · combo x${combo}` : "");
   } else {
-    botones[i].classList.add("bad"); errores.add(r.it.id); Sonido.mal();
+    combo = 0; racha = 0;
+    botones[i].classList.add("bad");
+    errores.add(r.it.id); dominadas.delete(r.it.id);
     falladas.push({ r, elegida: r.o[i] });
-    $("fb").textContent = "Incorrecto. La respuesta correcta está marcada en verde."; $("fb").className = "fb bad";
+    if (conVidas) vidas--;
+    Sonido.mal();
+    if (casilla) casilla.className = "bad";
+    $("banda").className = "banda bad";
+    $("bandaTitulo").textContent = conVidas && !vidas ? "SIN VIDAS" : "INCORRECTO";
+    $("bandaDet").textContent = (conVidas ? "−1 vida · " : "") + "la correcta está en verde";
   }
-  guardar();
-  $("pts").textContent = `✔ ${aciertos}`;
+
+  pintarVidas(); pintarCombo();
+  guardar(); guardarPerfil();
+  $("pts").textContent = puntos;
+  $("banda").hidden = false;
+
   const pausa = bien ? PAUSA_BIEN : PAUSA_MAL;
   const auto = $("auto");
   auto.style.setProperty("--dur", pausa + "ms");
@@ -335,12 +801,14 @@ function responder(i) {
 }
 
 function siguiente() {
+  clearTimeout(espera);
+  if (conVidas && !vidas) return terminar();
   const st = $("stage");
   st.classList.add("out");
+  $("banda").hidden = true;
   espera = setTimeout(() => {
     st.classList.remove("out");
     if (++idx >= ronda.length) return terminar();
-    $("barra").style.width = (idx / ronda.length * 100) + "%";
     st.classList.add("pre");
     mostrar();
     window.scrollTo(0, 0);
@@ -349,40 +817,93 @@ function siguiente() {
   }, ANIM);
 }
 
+function estrellas(pct) { return pct >= 95 ? 3 : pct >= 80 ? 2 : pct >= 60 ? 1 : 0; }
+
+function pintarEstrellas(n) {
+  const box = $("stars"); box.innerHTML = "";
+  box.setAttribute("aria-label", `${n} estrellas de 3`);
+  for (let i = 0; i < 3; i++) {
+    const svg = document.createElementNS(SVG, "svg");
+    svg.setAttribute("viewBox", "0 0 24 24"); svg.setAttribute("width", "31"); svg.setAttribute("height", "31");
+    svg.setAttribute("aria-hidden", "true");
+    const p = document.createElementNS(SVG, "path");
+    p.setAttribute("d", "M12 2.5l2.9 6.1 6.6.9-4.8 4.6 1.2 6.6L12 17.6 6.1 20.7l1.2-6.6L2.5 9.5l6.6-.9z");
+    if (i < n) { svg.setAttribute("fill", "currentColor"); }
+    else { svg.setAttribute("class", "off"); svg.setAttribute("fill", "none"); p.setAttribute("stroke", "currentColor"); p.setAttribute("stroke-width", "2"); }
+    svg.appendChild(p); box.appendChild(svg);
+  }
+}
+
 function terminar() {
   const ms = Date.now() - inicio;
   parar();
+  const hechas = respondida ? idx + 1 : idx;
+  const total = conVidas && !vidas ? hechas : ronda.length;
+  const pct = total ? Math.round(aciertos / total * 100) : 0;
+  const aprobado = conVidas && !vidas ? false : pct >= 70;
+  const estr = conVidas && !vidas ? 0 : estrellas(pct);
+
+  // XP: una parte de los puntos de la ronda
+  const xpGana = Math.round(puntos / 5);
+  const xpAntes = perfil.xp;
+  perfil.xp += xpGana;
+  if (conVidas && aciertos > perfil.mejor) { perfil.mejor = aciertos; perfil.mejorTotal = ronda.length; }
+  guardarPerfil();
+
   $("barra").style.width = "100%";
+  $("rank").className = aprobado ? "rank" : "rank bad";
+  $("rankBadge").textContent = conVidas && !vidas ? "SIN VIDAS" : aprobado ? "APROBADO" : "NO APROBADO";
+  $("rankSello").setAttribute("d", aprobado ? "M138 86.5 144 92.5 155 80.5" : "M139 79 153 93 M153 79 139 93");
+  pintarEstrellas(estr);
+  $("score").innerHTML = '<span class="n"></span><span class="d"></span>';
+  $("score").firstChild.textContent = aciertos;
+  $("score").lastChild.textContent = " / " + total;
+  $("pct").textContent = `${pct}% correctas · ${puntos} puntos en ${fmt(ms)}` + (pct === 100 ? " — ¡perfecto!" : "");
+
   $("tTotal").textContent = fmt(ms);
-  $("tProm").textContent = (ms / ronda.length / 1000).toFixed(1) + " s";
-  const pct = Math.round(aciertos / ronda.length * 100);
-  Sonido.fin(pct >= 70);
-  $("score").textContent = `${aciertos} / ${ronda.length}`;
-  $("pct").textContent = `${pct}% de respuestas correctas · lo hiciste en ${fmt(ms)}` + (pct === 100 ? " — ¡perfecto!" : "");
+  $("tProm").textContent = (ms / Math.max(total, 1) / 1000).toFixed(1).replace(".", ",") + " s";
+  $("sCombo").textContent = "x" + Math.max(comboMax, 1);
+  $("sRacha").textContent = rachaMax;
+
+  $("xpGanado").textContent = `+${xpGana} XP`;
+  $("xpNivelTxt").textContent = `Nivel ${nivel(perfil.xp)} · ${perfil.xp % XP_NIVEL} / ${XP_NIVEL}`;
+  const antes = nivel(xpAntes) === nivel(perfil.xp) ? xpAntes % XP_NIVEL : 0;
+  $("xpBarPrev").style.width = (antes / XP_NIVEL * 100) + "%";
+  $("xpBarNew").style.width = ((perfil.xp % XP_NIVEL - antes) / XP_NIVEL * 100) + "%";
+  const falta = XP_NIVEL - perfil.xp % XP_NIVEL;
+  $("xpFalta").textContent = `${falta} XP más y subís a Nivel ${nivel(perfil.xp) + 1} · ${nombreNivel(perfil.xp + XP_NIVEL)}`;
+
   $("repErr").hidden = !falladas.length;
   $("revCard").hidden = !falladas.length;
+  $("repErrTxt").textContent = `Repasar ${falladas.length === 1 ? "la que fallé" : "las " + falladas.length + " que fallé"}`;
+  $("revTitulo").textContent = `Para repasar · ${falladas.length}`;
   const ul = $("rev"); ul.innerHTML = "";
   for (const { r, elegida } of falladas) {
     const li = document.createElement("li");
     if (r.img) { const im = document.createElement("img"); im.src = r.img; im.alt = ""; li.appendChild(im); }
     const d = document.createElement("div");
-    d.innerHTML = `<small></small><div class="ok"></div><small class="bad"></small>`;
-    d.children[0].textContent = r.img ? "Señal" : r.q;
-    d.children[1].textContent = "✔ " + r.correcta;
-    d.children[2].textContent = "✘ Respondiste: " + elegida;
+    d.innerHTML = '<small></small><div class="ok"></div><small class="bad"></small>';
+    d.children[0].textContent = r.img ? "Señal · " + r.it.tag : r.q;
+    d.children[1].textContent = r.correcta;
+    d.children[2].textContent = "Respondiste: " + elegida;
     li.appendChild(d); ul.appendChild(li);
   }
+
+  Sonido.fin(aprobado);
   refrescarMenu();
   pantalla("fin");
 }
 
 document.querySelectorAll(".mode").forEach(b => b.onclick = () => empezar(b.dataset.mode));
 $("salir").onclick = () => { parar(); $("stage").className = "card stage"; refrescarMenu(); pantalla("menu"); };
+$("reiniciar").onclick = () => { parar(); empezar(ultimoModo); };
 $("menuBtn").onclick = () => pantalla("menu");
 $("otraVez").onclick = () => empezar(ultimoModo);
 $("repErr").onclick = () => empezar("repaso", falladas.map(f => f.r.it));
 $("btnPausa").onclick = pausar;
 $("continuar").onclick = continuar;
+$("btnSigue").onclick = () => { if (respondida && !pausadoDesde) siguiente(); };
+
 // Si se sale de la app o se bloquea el celular, se pausa solo y se corta el sonido
 document.addEventListener("visibilitychange", () => {
   if (document.hidden) { if (reloj) pausar(); Sonido.dormir(); }
@@ -402,11 +923,16 @@ function activarSonido() {
 for (const ev of ["pointerdown", "keydown", "touchend"]) document.addEventListener(ev, activarSonido, true);
 Sonido.play();
 setTimeout(() => { $("avisoSonido").hidden = !Sonido.musica || !Sonido.bloqueado; }, 300);
+
 document.addEventListener("keydown", e => {
   if ($("quiz").hidden) return;
   if (e.key === "Escape" || e.key === "p") return pausadoDesde ? continuar() : pausar();
-  if (!respondida && e.key >= "1" && e.key <= "4") responder(+e.key - 1);
+  if (respondida && (e.key === "Enter" || e.key === " ")) return siguiente();
+  if (respondida || pausadoDesde) return;
+  const n = e.key >= "1" && e.key <= "4" ? +e.key - 1 : "abcd".indexOf(e.key.toLowerCase());
+  if (n >= 0 && n < 4) responder(n);
 });
+
 pintarToggles();
 refrescarMenu();
 </script>
