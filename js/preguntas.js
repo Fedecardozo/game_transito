@@ -1,5 +1,6 @@
-// Preguntas de teoría. Fuentes: "Conocimientos generales para conducir (categorías A–G)"
-// del folleto de licencias y "Conocimientos básicos para conductores particulares" del manual.
+// Preguntas de teoría para la licencia de autos (sin las específicas de motos).
+// Fuentes: "Conocimientos generales para conducir (categorías A–G)" del folleto de
+// licencias y "Conocimientos básicos para conductores particulares" del manual.
 // La primera opción de cada pregunta es la correcta (se mezclan al mostrarlas).
 const PREGUNTAS = [
   // Documentación y seguridad
@@ -69,7 +70,7 @@ const PREGUNTAS = [
     o: ["Puentes, curvas, barreras, bocacalles, rampas y túneles", "Solo en curvas",
         "Solo en rutas de doble mano", "En rectas con línea discontinua"] },
   { tema: "Adelantamiento", q: "¿Se puede circular en zigzag al cruzar una calzada?",
-    o: ["No", "Sí, si no hay tránsito", "Sí, solo con moto", "Sí, de noche"] },
+    o: ["No", "Sí, si no hay tránsito", "Sí, si se va despacio", "Sí, de noche"] },
   { tema: "Adelantamiento", q: "¿Qué demarcación horizontal en el pavimento habilita para adelantarse?",
     o: ["La línea blanca discontinua", "La línea blanca continua", "La doble línea amarilla continua", "La línea de PARE"] },
 
@@ -80,7 +81,7 @@ const PREGUNTAS = [
     o: ["La prolongación de la acera sobre la calzada, esté o no delimitada, destinada al cruce peatonal",
         "La vereda frente a una escuela",
         "Solo las franjas blancas pintadas en la calle",
-        "El espacio para estacionar motos"] },
+        "El carril exclusivo para colectivos"] },
   { tema: "Prioridad de paso", q: "Entre vehículos en calles de igual jerarquía, ¿quién tiene prioridad?",
     o: ["El que se encuentra a la derecha del otro", "El que se encuentra a la izquierda del otro",
         "El vehículo más grande", "El que circula más rápido"] },
@@ -107,40 +108,6 @@ const PREGUNTAS = [
   { tema: "Circulación", q: "¿Cómo se debe transitar en pendientes en bajada?",
     o: ["En un cambio menor al que llevaba (el que tiene mayor fuerza)", "En punto muerto",
         "En el cambio más alto posible", "Con el embrague apretado"] },
-
-  // Motos
-  { tema: "Motos", q: "Cuando varios motovehículos marchan juntos o agrupados, deben ubicarse en la calzada:",
-    o: ["En fila india", "De a dos, uno al lado del otro", "Ocupando todo el carril", "Entre los autos"] },
-  { tema: "Motos", q: "Si la moto tiene maletas laterales usadas como equipaje, deben ir cargadas:",
-    o: ["Aproximadamente con el mismo peso", "La izquierda con más peso", "La derecha con más peso", "Solo una de las dos"] },
-  { tema: "Motos", q: "Si el dibujo de los neumáticos desapareció por el uso:",
-    o: ["Deben ser reemplazados por otros en buen estado", "Se puede seguir circulando con precaución",
-        "Solo hay que cambiarlos si llueve", "Hay que inflarlos más"] },
-  { tema: "Motos", q: "Si sufrís una caída con la moto que no te produce lesión física:",
-    o: ["Hay que comprobar el estado de la moto antes de proseguir el viaje", "Se sigue el viaje normalmente",
-        "Hay que llamar a una grúa obligatoriamente", "Hay que abandonar la moto"] },
-  { tema: "Motos", q: "¿Está permitido estacionar motovehículos sobre la vereda?",
-    o: ["No", "Sí, siempre", "Sí, si no molesta a los peatones", "Sí, solo de noche"] },
-  { tema: "Motos", q: "¿Para quién es obligatorio el uso de casco durante la marcha?",
-    o: ["Para el conductor y los acompañantes de ciclomotores, motos y triciclos motorizados",
-        "Solo para el conductor", "Solo en rutas", "Solo para motos de más de 150 cc"] },
-  { tema: "Motos", q: "Al acelerar la motocicleta, la masa se desplaza hacia:",
-    o: ["La rueda trasera", "La rueda delantera", "El manubrio", "Ningún lado"] },
-  { tema: "Motos", q: "En las motocicletas, la rueda motriz es normalmente:",
-    o: ["La trasera", "La delantera", "Ambas", "Depende de la marcha"] },
-  { tema: "Motos", q: "Si el viento desvía la trayectoria del ciclomotor, para manejar con seguridad se debe:",
-    o: ["Sujetar firmemente el manubrio y bajar la velocidad", "Acelerar para estabilizarse",
-        "Frenar bruscamente", "Soltar el manubrio con una mano"] },
-  { tema: "Motos", q: "¿Qué precauciones se deben tomar con motocicleta bajo una lluvia intensa?",
-    o: ["Circular a velocidad moderada y, si fuera preciso, detener el vehículo", "Circular más rápido para llegar antes",
-        "Circular por la banquina", "Usar solo el freno delantero"] },
-  { tema: "Motos", q: "Para encender la luz de frenado de una motocicleta:",
-    o: ["Basta con accionar cualquiera de los dos frenos, juntos o por separado", "Hay que accionar solo el freno trasero",
-        "Hay que accionar los dos frenos a la vez", "Se enciende con una tecla aparte"] },
-  { tema: "Motos", q: "¿Cuál es la forma más adecuada de actuar sobre los mandos de los frenos de una moto?",
-    o: ["De manera suave y progresiva", "De manera brusca", "Solo con el freno delantero", "Bombeando rápidamente"] },
-  { tema: "Motos", q: "Para circular en moto se debe llevar:",
-    o: ["Antiparras y casco", "Solo casco", "Guantes únicamente", "Chaleco reflectivo únicamente"] },
 
   // Estacionamiento y distancias
   { tema: "Estacionamiento y distancias", q: "¿Cómo se estaciona en el Partido de Lomas de Zamora?",
@@ -182,4 +149,7 @@ const PREGUNTAS = [
         "Frenar fuerte para detenerse rápido", "Poner punto muerto", "Acelerar para no patinar"] },
   { tema: "Seguridad y frenado", q: "Antes de realizar cualquier maniobra (por ejemplo frenar o cambiar de carril) se debe:",
     o: ["Observar por los espejos y señalizar", "Tocar bocina", "Encender las balizas", "Acelerar"] },
+  { tema: "Seguridad y frenado", q: "Si el dibujo de los neumáticos desapareció por el uso:",
+    o: ["Deben ser reemplazados por otros en buen estado", "Se puede seguir circulando con precaución",
+        "Solo hay que cambiarlos si llueve", "Hay que inflarlos más"] },
 ];

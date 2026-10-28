@@ -1,8 +1,8 @@
 # Teórico de Manejo 🚦
 
-Juego web de preguntas con opción múltiple para **estudiar el examen teórico de la licencia de conducir** (Argentina). Se juega en el celular o en la compu, no necesita instalación ni conexión a un servidor, y está pensado para que estudiar sea más ágil: respondés, ves al instante si acertaste y pasás sola a la siguiente pregunta.
+Juego web de preguntas con opción múltiple para **estudiar el examen teórico de la licencia de conducir para autos** (Argentina). Se juega en el celular o en la compu, no necesita instalación ni conexión a un servidor, y está pensado para que estudiar sea más ágil: respondés, ves al instante si acertaste y pasás sola a la siguiente pregunta.
 
-Tiene **170 señales de tránsito** con su imagen y **60 preguntas de teoría** (velocidades, prioridad de paso, adelantamiento, estacionamiento, motos, balizas y más), con puntos, combos, niveles, examen simulado con vidas, música y efectos de sonido.
+Tiene **170 señales de tránsito** con su imagen y **48 preguntas de teoría** (velocidades, prioridad de paso, adelantamiento, estacionamiento, balizas y más), con puntos, combos, niveles, examen simulado con vidas, música y efectos de sonido.
 
 <p align="center">
   <img src="docs/capturas/menu.png" width="250" alt="Menú principal">
@@ -30,7 +30,7 @@ Desde el menú elegís cómo querés practicar y cuántas preguntas querés por 
 | Modo | Qué hace |
 |---|---|
 | **Señales de tránsito** | Solo señales: "¿Qué significa esta señal?". Muestra cuántas de las 170 ya dominás. |
-| **Teoría** | Solo preguntas de normas. Muestra cuántas de las 60 ya dominás. |
+| **Teoría** | Solo preguntas de normas. Muestra cuántas de las 48 ya dominás. |
 | **Examen simulado** | Mitad señales y mitad teoría, con **3 vidas**: si te equivocás 3 veces, la partida termina. Guarda tu mejor resultado. |
 | **Repasar mis errores** | Te pregunta solo lo que respondiste mal en partidas anteriores. Cuando lo acertás, sale de la lista. |
 
@@ -132,7 +132,7 @@ Las imágenes se recortaron del material de señalética del examen y están en 
 | Transitoria (obras) | 16 |
 | Señales del agente de tránsito | 9 |
 
-### Teoría (60)
+### Teoría (48)
 
 | Tema | Preguntas |
 |---|---:|
@@ -142,9 +142,8 @@ Las imágenes se recortaron del material de señalética del examen y están en 
 | Giros | 4 |
 | Adelantamiento | 7 |
 | Prioridad de paso | 9 |
-| Motos | 13 |
 | Estacionamiento y distancias | 7 |
-| Seguridad y frenado | 8 |
+| Seguridad y frenado | 9 |
 
 ### Fuentes
 
@@ -153,6 +152,8 @@ El contenido sale del material de estudio del examen teórico del **Municipio de
 - *Sistema de Señalización Vial Uniforme* (señalética del examen teórico).
 - *Manual de Tránsito* (versión reducida): "Conocimientos básicos para conductores particulares".
 - Folleto de licencias: solo la sección **"Conocimientos generales para conducir – Categorías A, B, C, D, E, F, G"**. Las secciones exclusivas de categorías profesionales (C, E y D) quedaron afuera a propósito.
+
+Como el juego es para sacar el registro **de auto**, también quedaron afuera las preguntas que son solo para motos (casco, manejo de la moto, frenos de la moto, etc.). Las señales que hablan de motos (por ejemplo *Prohibido circular motos*) siguen, porque también las tiene que conocer quien maneja un auto.
 
 Algunas respuestas son propias de Lomas de Zamora (por ejemplo, de qué lado se estaciona). Las respuestas correctas salen textuales del material; **las opciones incorrectas fueron escritas para el juego**. Es una herramienta de práctica, no material oficial: ante cualquier duda, consultá el material de tu municipio.
 
@@ -191,7 +192,7 @@ css/estilos.css         todos los estilos (tema oscuro, pensado para celular)
 js/app.js               lógica del juego: modos, preguntas, puntos, pausa, resultado
 js/audio.js             música y efectos de sonido (Web Audio API)
 js/senales.js           las 170 señales: imagen, nombre y categoría
-js/preguntas.js         las 60 preguntas de teoría
+js/preguntas.js         las 48 preguntas de teoría
 img/senales/            imágenes de cada señal
 docs/capturas/          capturas de pantalla de este README
 favicon.svg             ícono de la pestaña (señal de Ceda el paso)
